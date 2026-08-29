@@ -33,3 +33,13 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+Git remote is currently:
+origin https://github.com/dmraykhan/ip.git
+
+Typical workflow after completing an increment:
+git add .
+git commit -m "<appropriate commit message>"
+git tag Level-X
+git push
+git push origin Level-X
