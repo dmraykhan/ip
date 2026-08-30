@@ -203,11 +203,14 @@ Bye. Hope to see you again soon!
 deadline
 deadline /by Sunday
 deadline report /by
+deadline report /bypass
 event
 event /from Mon /to Tue
 event meeting /from Mon
 event meeting /from /to Tue
 event meeting /from Mon /to
+event lunch /fromage /toffee
+event lunch /from Mon /today
 deadline report /by Sunday
 event meeting /from Mon /to Tue
 list
@@ -228,6 +231,9 @@ OOPS!!! A deadline needs a description. Try: deadline <description> /by <time>
 OOPS!!! The deadline time cannot be empty after /by.
 {{DIVIDER}}
 {{DIVIDER}}
+OOPS!!! A deadline needs /by followed by a time.
+{{DIVIDER}}
+{{DIVIDER}}
 OOPS!!! An event needs /from followed by a start time.
 {{DIVIDER}}
 {{DIVIDER}}
@@ -241,6 +247,12 @@ OOPS!!! The event start time cannot be empty after /from.
 {{DIVIDER}}
 {{DIVIDER}}
 OOPS!!! The event end time cannot be empty after /to.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! An event needs /from followed by a start time.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! An event needs /to followed by an end time.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:

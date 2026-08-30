@@ -58,7 +58,7 @@ public class Twizzy {
                 } else {
                     Task newTask = parseTask(command);
                     if (taskCount == tasks.length) {
-                        throw new TwizzyException("The task list is full. Remove a task before adding another.");
+                        throw new TwizzyException("The task list can hold at most 100 tasks.");
                     }
                     tasks[taskCount] = newTask;
                     taskCount++;
@@ -99,7 +99,7 @@ public class Twizzy {
 
         if (command.equals("deadline") || command.startsWith("deadline ")) {
             String details = command.substring(8).trim();
-            int byIndex = details.indexOf("/by");
+            int byIndex = findCommandMarker(details, "/by", 0);
             if (byIndex < 0) {
                 throw new TwizzyException("A deadline needs /by followed by a time.");
             }
@@ -117,8 +117,10 @@ public class Twizzy {
 
         if (command.equals("event") || command.startsWith("event ")) {
             String details = command.substring(5).trim();
-            int fromIndex = details.indexOf("/from");
-            int toIndex = fromIndex < 0 ? -1 : details.indexOf("/to", fromIndex + 5);
+            int fromIndex = findCommandMarker(details, "/from", 0);
+            int toIndex = fromIndex < 0
+                    ? -1
+                    : findCommandMarker(details, "/to", fromIndex + 5);
             if (fromIndex < 0) {
                 throw new TwizzyException("An event needs /from followed by a start time.");
             }
@@ -143,6 +145,31 @@ public class Twizzy {
 
         throw new TwizzyException(
                 "I don't recognize that command. Try todo, deadline, event, list, mark, unmark, or bye.");
+    }
+
+    /**
+     * Finds a command marker that is separated from surrounding text by whitespace.
+     * This prevents text such as {@code /bypass} from being mistaken for {@code /by}.
+     *
+     * @param text text containing command details
+     * @param marker marker to find, including its leading slash
+     * @param startIndex index at which to start searching
+     * @return index of the marker, or -1 if no complete marker token exists
+     */
+    private static int findCommandMarker(String text, String marker, int startIndex) {
+        int markerIndex = text.indexOf(marker, startIndex);
+        while (markerIndex >= 0) {
+            int afterMarker = markerIndex + marker.length();
+            boolean hasLeftBoundary = markerIndex == 0
+                    || Character.isWhitespace(text.charAt(markerIndex - 1));
+            boolean hasRightBoundary = afterMarker == text.length()
+                    || Character.isWhitespace(text.charAt(afterMarker));
+            if (hasLeftBoundary && hasRightBoundary) {
+                return markerIndex;
+            }
+            markerIndex = text.indexOf(marker, markerIndex + 1);
+        }
+        return -1;
     }
 
     /**
