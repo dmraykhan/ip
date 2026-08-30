@@ -55,28 +55,37 @@ public class Twizzy {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[taskIndex]);
             } else {
-                if (command.startsWith("todo ")) {
-                    tasks[taskCount] = new Todo(command.substring(5));
-                } else if (command.startsWith("deadline ")) {
-                    int byIndex = command.indexOf(" /by ");
-                    String description = command.substring(9, byIndex);
-                    String by = command.substring(byIndex + 5);
-                    tasks[taskCount] = new Deadline(description, by);
-                } else if (command.startsWith("event ")) {
-                    int fromIndex = command.indexOf(" /from ");
-                    int toIndex = command.indexOf(" /to ");
-                    String description = command.substring(6, fromIndex);
-                    String from = command.substring(fromIndex + 7, toIndex);
-                    String to = command.substring(toIndex + 5);
-                    tasks[taskCount] = new Event(description, from, to);
-                } else {
-                    tasks[taskCount] = new Todo(command);
+                try {
+                    if (command.equals("todo") || command.startsWith("todo ")
+                            && command.substring(5).trim().isEmpty()) {
+                        throw new TwizzyException(
+                                "A todo needs a description. Try: todo <description>");
+                    } else if (command.startsWith("todo ")) {
+                        tasks[taskCount] = new Todo(command.substring(5));
+                    } else if (command.startsWith("deadline ")) {
+                        int byIndex = command.indexOf(" /by ");
+                        String description = command.substring(9, byIndex);
+                        String by = command.substring(byIndex + 5);
+                        tasks[taskCount] = new Deadline(description, by);
+                    } else if (command.startsWith("event ")) {
+                        int fromIndex = command.indexOf(" /from ");
+                        int toIndex = command.indexOf(" /to ");
+                        String description = command.substring(6, fromIndex);
+                        String from = command.substring(fromIndex + 7, toIndex);
+                        String to = command.substring(toIndex + 5);
+                        tasks[taskCount] = new Event(description, from, to);
+                    } else {
+                        throw new TwizzyException(
+                                "I don't recognize that command. Try todo, deadline, event, list, mark, unmark, or bye.");
+                    }
+                    taskCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCount - 1]);
+                    String taskWord = taskCount == 1 ? "task" : "tasks";
+                    System.out.println("Now you have " + taskCount + " " + taskWord + " in the list.");
+                } catch (TwizzyException exception) {
+                    System.out.println("OOPS!!! " + exception.getMessage());
                 }
-                taskCount++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCount - 1]);
-                String taskWord = taskCount == 1 ? "task" : "tasks";
-                System.out.println("Now you have " + taskCount + " " + taskWord + " in the list.");
             }
 
             System.out.println(divider);

@@ -147,3 +147,48 @@ Here are the tasks in your list:
 Bye. Hope to see you again soon!
 {{DIVIDER}}
 ```
+
+## TC5: Reject an empty todo and unknown command
+
+**Aim:** Verify that invalid commands show helpful errors and do not change tasks added before or after them.
+
+**Inputs:**
+
+```text
+todo first task
+todo
+blah
+todo second task
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [T][ ] first task
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! A todo needs a description. Try: todo <description>
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, or bye.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [T][ ] second task
+Now you have 2 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[T][ ] first task
+2.[T][ ] second task
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+```
