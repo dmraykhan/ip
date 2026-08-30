@@ -1,10 +1,19 @@
 import java.util.Scanner;
 
+/**
+ * Runs the Twizzy chatbot and manages its in-memory task list.
+ */
 public class Twizzy {
+    /**
+     * Reads commands from standard input until the user exits the chatbot.
+     *
+     * @param args command-line arguments; not used
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String divider = "____________________________________________________________";
         String[] tasks = new String[100];
+        boolean[] isDone = new boolean[100];
         int taskCount = 0;
         String banner = " _______        _                     \n"
                 + "|__   __|      (_)                    \n"
@@ -32,9 +41,16 @@ public class Twizzy {
             }
 
             if (command.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    String status = isDone[i] ? "X" : " ";
+                    System.out.println((i + 1) + ".[" + status + "] " + tasks[i]);
                 }
+            } else if (command.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(command.substring(5)) - 1;
+                isDone[taskIndex] = true;
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  [X] " + tasks[taskIndex]);
             } else {
                 tasks[taskCount] = command;
                 taskCount++;
