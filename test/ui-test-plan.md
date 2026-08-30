@@ -28,8 +28,8 @@ Bye. Hope to see you again soon!
 **Inputs:**
 
 ```text
-read book
-return book
+todo read book
+todo return book
 list
 bye
 ```
@@ -39,15 +39,19 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-added: read book
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
 {{DIVIDER}}
 {{DIVIDER}}
-added: return book
+Got it. I've added this task:
+  [T][ ] return book
+Now you have 2 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the tasks in your list:
-1.[ ] read book
-2.[ ] return book
+1.[T][ ] read book
+2.[T][ ] return book
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!
@@ -61,8 +65,8 @@ Bye. Hope to see you again soon!
 **Inputs:**
 
 ```text
-read book
-return book
+todo read book
+todo return book
 mark 2
 list
 unmark 2
@@ -75,28 +79,69 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-added: read book
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
 {{DIVIDER}}
 {{DIVIDER}}
-added: return book
+Got it. I've added this task:
+  [T][ ] return book
+Now you have 2 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Nice! I've marked this task as done:
-  [X] return book
+  [T][X] return book
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the tasks in your list:
-1.[ ] read book
-2.[X] return book
+1.[T][ ] read book
+2.[T][X] return book
 {{DIVIDER}}
 {{DIVIDER}}
 OK, I've marked this task as not done yet:
-  [ ] return book
+  [T][ ] return book
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the tasks in your list:
-1.[ ] read book
-2.[ ] return book
+1.[T][ ] read book
+2.[T][ ] return book
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+```
+
+## TC4: Add deadlines and events
+
+**Aim:** Verify that deadline and event details are retained as text and displayed with their task types.
+
+**Inputs:**
+
+```text
+deadline do homework /by no idea :-p
+event project meeting /from Mon 2pm /to 4pm
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [D][ ] do homework (by: no idea :-p)
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[D][ ] do homework (by: no idea :-p)
+2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!

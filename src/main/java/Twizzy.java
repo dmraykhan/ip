@@ -55,9 +55,28 @@ public class Twizzy {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[taskIndex]);
             } else {
-                tasks[taskCount] = new Task(command);
+                if (command.startsWith("todo ")) {
+                    tasks[taskCount] = new Task(command.substring(5));
+                } else if (command.startsWith("deadline ")) {
+                    int byIndex = command.indexOf(" /by ");
+                    String description = command.substring(9, byIndex);
+                    String by = command.substring(byIndex + 5);
+                    tasks[taskCount] = new Task(description, "D", by, null, null);
+                } else if (command.startsWith("event ")) {
+                    int fromIndex = command.indexOf(" /from ");
+                    int toIndex = command.indexOf(" /to ");
+                    String description = command.substring(6, fromIndex);
+                    String from = command.substring(fromIndex + 7, toIndex);
+                    String to = command.substring(toIndex + 5);
+                    tasks[taskCount] = new Task(description, "E", null, from, to);
+                } else {
+                    tasks[taskCount] = new Task(command);
+                }
                 taskCount++;
-                System.out.println("added: " + command);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                String taskWord = taskCount == 1 ? "task" : "tasks";
+                System.out.println("Now you have " + taskCount + " " + taskWord + " in the list.");
             }
 
             System.out.println(divider);
