@@ -4,6 +4,8 @@ public class Twizzy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String divider = "____________________________________________________________";
+        String[] tasks = new String[100];
+        int taskCount = 0;
         String banner = " _______        _                     \n"
                 + "|__   __|      (_)                    \n"
                 + "   | |_      ___ __________   _       \n"
@@ -29,7 +31,16 @@ public class Twizzy {
                 break;
             }
 
-            System.out.println(command);
+            if (command.equals("list")) {
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+            } else {
+                tasks[taskCount] = command;
+                taskCount++;
+                System.out.println("added: " + command);
+            }
+
             System.out.println(divider);
         }
 
