@@ -192,3 +192,143 @@ Here are the tasks in your list:
 Bye. Hope to see you again soon!
 {{DIVIDER}}
 ```
+
+## TC6: Reject malformed deadlines and events
+
+**Aim:** Verify specific errors for every missing deadline or event field and confirm later valid timed tasks are stored correctly.
+
+**Inputs:**
+
+```text
+deadline
+deadline /by Sunday
+deadline report /by
+event
+event /from Mon /to Tue
+event meeting /from Mon
+event meeting /from /to Tue
+event meeting /from Mon /to
+deadline report /by Sunday
+event meeting /from Mon /to Tue
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+OOPS!!! A deadline needs /by followed by a time.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! A deadline needs a description. Try: deadline <description> /by <time>
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The deadline time cannot be empty after /by.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! An event needs /from followed by a start time.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! An event needs a description. Try: event <description> /from <start> /to <end>
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! An event needs /to followed by an end time.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The event start time cannot be empty after /from.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The event end time cannot be empty after /to.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [D][ ] report (by: Sunday)
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [E][ ] meeting (from: Mon to: Tue)
+Now you have 2 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[D][ ] report (by: Sunday)
+2.[E][ ] meeting (from: Mon to: Tue)
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+```
+
+## TC7: Reject invalid task selections
+
+**Aim:** Verify empty input and invalid mark or unmark numbers are handled without changing valid task state.
+
+**Inputs:**
+
+```text
+
+mark
+unmark 1
+todo stable task
+mark two
+mark 0
+mark 2
+unmark
+unmark 1 extra
+unmark 2
+mark 1
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+OOPS!!! Please enter a command.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! Please provide a task number. Try: mark <number>
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! There are no tasks to unmark.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [T][ ] stable task
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The task number must be a whole number.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! Choose a task number from 1 to 1.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! Choose a task number from 1 to 1.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! Please provide a task number. Try: unmark <number>
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The task number must be a whole number.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! Choose a task number from 1 to 1.
+{{DIVIDER}}
+{{DIVIDER}}
+Nice! I've marked this task as done:
+  [T][X] stable task
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[T][X] stable task
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+```
