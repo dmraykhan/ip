@@ -56,21 +56,21 @@ public class Twizzy {
                 System.out.println("  " + tasks[taskIndex]);
             } else {
                 if (command.startsWith("todo ")) {
-                    tasks[taskCount] = new Task(command.substring(5));
+                    tasks[taskCount] = new Todo(command.substring(5));
                 } else if (command.startsWith("deadline ")) {
                     int byIndex = command.indexOf(" /by ");
                     String description = command.substring(9, byIndex);
                     String by = command.substring(byIndex + 5);
-                    tasks[taskCount] = new Task(description, "D", by, null, null);
+                    tasks[taskCount] = new Deadline(description, by);
                 } else if (command.startsWith("event ")) {
                     int fromIndex = command.indexOf(" /from ");
                     int toIndex = command.indexOf(" /to ");
                     String description = command.substring(6, fromIndex);
                     String from = command.substring(fromIndex + 7, toIndex);
                     String to = command.substring(toIndex + 5);
-                    tasks[taskCount] = new Task(description, "E", null, from, to);
+                    tasks[taskCount] = new Event(description, from, to);
                 } else {
-                    tasks[taskCount] = new Task(command);
+                    tasks[taskCount] = new Todo(command);
                 }
                 taskCount++;
                 System.out.println("Got it. I've added this task:");
