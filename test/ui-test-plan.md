@@ -490,3 +490,57 @@ OOPS!!! There are no tasks to delete.
 Bye. Hope to see you again soon!
 {{DIVIDER}}
 ```
+
+## TC10: Reject command keyword prefixes
+
+**Aim:** Verify command-like prefixes are not mistaken for supported enum command types and do not affect later valid input.
+
+**Inputs:**
+
+```text
+todoing read book
+listing
+marking 1
+deleting 1
+list extra
+bye now
+todo valid task
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [T][ ] valid task
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[T][ ] valid task
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+```

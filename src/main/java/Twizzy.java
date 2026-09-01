@@ -31,44 +31,60 @@ public class Twizzy {
 
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
+            CommandType commandType = CommandType.from(command);
             System.out.println(divider);
 
-            if (command.equals("bye")) {
+            if (commandType == CommandType.BYE) {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(divider);
                 break;
             }
 
             try {
-                if (command.equals("list")) {
+                switch (commandType) {
+                case LIST:
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + "." + tasks.get(i));
                     }
-                } else if (command.equals("mark") || command.startsWith("mark ")) {
-                    int taskIndex = parseTaskIndex(command, "mark", tasks.size());
+                    break;
+                case MARK: {
+                    int taskIndex = parseTaskIndex(command, commandType, tasks.size());
                     tasks.get(taskIndex).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tasks.get(taskIndex));
-                } else if (command.equals("unmark") || command.startsWith("unmark ")) {
-                    int taskIndex = parseTaskIndex(command, "unmark", tasks.size());
+                    break;
+                }
+                case UNMARK: {
+                    int taskIndex = parseTaskIndex(command, commandType, tasks.size());
                     tasks.get(taskIndex).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(taskIndex));
-                } else if (command.equals("delete") || command.startsWith("delete ")) {
-                    int taskIndex = parseTaskIndex(command, "delete", tasks.size());
+                    break;
+                }
+                case DELETE: {
+                    int taskIndex = parseTaskIndex(command, commandType, tasks.size());
                     Task removedTask = tasks.remove(taskIndex);
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + removedTask);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
                     System.out.println("Now you have " + tasks.size() + " " + taskWord + " in the list.");
-                } else {
-                    Task newTask = parseTask(command);
+                    break;
+                }
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                case UNKNOWN: {
+                    Task newTask = parseTask(command, commandType);
                     tasks.add(newTask);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
                     System.out.println("Now you have " + tasks.size() + " " + taskWord + " in the list.");
+                    break;
+                }
+                case BYE:
+                    break;
                 }
             } catch (TwizzyException exception) {
                 System.out.println("OOPS!!! " + exception.getMessage());
@@ -84,15 +100,16 @@ public class Twizzy {
      * Parses and validates a command that creates a task.
      *
      * @param command complete user command
+     * @param commandType identified command type
      * @return the task described by the command
      * @throws TwizzyException if the command or one of its fields is invalid
      */
-    private static Task parseTask(String command) throws TwizzyException {
+    private static Task parseTask(String command, CommandType commandType) throws TwizzyException {
         if (command.trim().isEmpty()) {
             throw new TwizzyException("Please enter a command.");
         }
 
-        if (command.equals("todo") || command.startsWith("todo ")) {
+        if (commandType == CommandType.TODO) {
             String description = command.substring(4).trim();
             if (description.isEmpty()) {
                 throw new TwizzyException("A todo needs a description. Try: todo <description>");
@@ -100,7 +117,7 @@ public class Twizzy {
             return new Todo(description);
         }
 
-        if (command.equals("deadline") || command.startsWith("deadline ")) {
+        if (commandType == CommandType.DEADLINE) {
             String details = command.substring(8).trim();
             int byIndex = findCommandMarker(details, "/by", 0);
             if (byIndex < 0) {
@@ -118,7 +135,7 @@ public class Twizzy {
             return new Deadline(description, by);
         }
 
-        if (command.equals("event") || command.startsWith("event ")) {
+        if (commandType == CommandType.EVENT) {
             String details = command.substring(5).trim();
             int fromIndex = findCommandMarker(details, "/from", 0);
             int toIndex = fromIndex < 0
@@ -179,16 +196,18 @@ public class Twizzy {
      * Parses and validates the task number in a command that selects one task.
      *
      * @param command complete user command
-     * @param action command name, such as mark, unmark, or delete
+     * @param action command type, such as mark, unmark, or delete
      * @param taskCount number of tasks currently stored
      * @return zero-based index of the selected task
      * @throws TwizzyException if the task number is missing, malformed, or out of range
      */
-    private static int parseTaskIndex(String command, String action, int taskCount)
+    private static int parseTaskIndex(String command, CommandType action, int taskCount)
             throws TwizzyException {
-        String numberText = command.substring(action.length()).trim();
+        String actionKeyword = action.getKeyword();
+        String numberText = command.substring(actionKeyword.length()).trim();
         if (numberText.isEmpty()) {
-            throw new TwizzyException("Please provide a task number. Try: " + action + " <number>");
+            throw new TwizzyException(
+                    "Please provide a task number. Try: " + actionKeyword + " <number>");
         }
 
         int taskNumber;
@@ -200,7 +219,7 @@ public class Twizzy {
 
         if (taskNumber < 1 || taskNumber > taskCount) {
             if (taskCount == 0) {
-                throw new TwizzyException("There are no tasks to " + action + ".");
+                throw new TwizzyException("There are no tasks to " + actionKeyword + ".");
             }
             throw new TwizzyException("Choose a task number from 1 to " + taskCount + ".");
         }
