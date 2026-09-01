@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -12,8 +13,7 @@ public class Twizzy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String divider = "____________________________________________________________";
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
         String banner = " _______        _                     \n"
                 + "|__   __|      (_)                    \n"
                 + "   | |_      ___ __________   _       \n"
@@ -42,30 +42,26 @@ public class Twizzy {
             try {
                 if (command.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
                     }
                 } else if (command.equals("mark") || command.startsWith("mark ")) {
-                    int taskIndex = parseTaskIndex(command, "mark", taskCount);
-                    tasks[taskIndex].markAsDone();
+                    int taskIndex = parseTaskIndex(command, "mark", tasks.size());
+                    tasks.get(taskIndex).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks[taskIndex]);
+                    System.out.println("  " + tasks.get(taskIndex));
                 } else if (command.equals("unmark") || command.startsWith("unmark ")) {
-                    int taskIndex = parseTaskIndex(command, "unmark", taskCount);
-                    tasks[taskIndex].markAsNotDone();
+                    int taskIndex = parseTaskIndex(command, "unmark", tasks.size());
+                    tasks.get(taskIndex).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks[taskIndex]);
+                    System.out.println("  " + tasks.get(taskIndex));
                 } else {
                     Task newTask = parseTask(command);
-                    if (taskCount == tasks.length) {
-                        throw new TwizzyException("The task list can hold at most 100 tasks.");
-                    }
-                    tasks[taskCount] = newTask;
-                    taskCount++;
+                    tasks.add(newTask);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask);
-                    String taskWord = taskCount == 1 ? "task" : "tasks";
-                    System.out.println("Now you have " + taskCount + " " + taskWord + " in the list.");
+                    String taskWord = tasks.size() == 1 ? "task" : "tasks";
+                    System.out.println("Now you have " + tasks.size() + " " + taskWord + " in the list.");
                 }
             } catch (TwizzyException exception) {
                 System.out.println("OOPS!!! " + exception.getMessage());
