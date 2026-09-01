@@ -55,6 +55,13 @@ public class Twizzy {
                     tasks.get(taskIndex).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(taskIndex));
+                } else if (command.equals("delete") || command.startsWith("delete ")) {
+                    int taskIndex = parseTaskIndex(command, "delete", tasks.size());
+                    Task removedTask = tasks.remove(taskIndex);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + removedTask);
+                    String taskWord = tasks.size() == 1 ? "task" : "tasks";
+                    System.out.println("Now you have " + tasks.size() + " " + taskWord + " in the list.");
                 } else {
                     Task newTask = parseTask(command);
                     tasks.add(newTask);
@@ -140,7 +147,7 @@ public class Twizzy {
         }
 
         throw new TwizzyException(
-                "I don't recognize that command. Try todo, deadline, event, list, mark, unmark, or bye.");
+                "I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.");
     }
 
     /**
@@ -169,10 +176,10 @@ public class Twizzy {
     }
 
     /**
-     * Parses and validates the task number in a mark or unmark command.
+     * Parses and validates the task number in a command that selects one task.
      *
      * @param command complete user command
-     * @param action command name, either mark or unmark
+     * @param action command name, such as mark, unmark, or delete
      * @param taskCount number of tasks currently stored
      * @return zero-based index of the selected task
      * @throws TwizzyException if the task number is missing, malformed, or out of range

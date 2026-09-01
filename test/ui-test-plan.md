@@ -176,7 +176,7 @@ Now you have 1 task in the list.
 OOPS!!! A todo needs a description. Try: todo <description>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, or bye.
+OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:
@@ -339,6 +339,152 @@ Nice! I've marked this task as done:
 {{DIVIDER}}
 Here are the tasks in your list:
 1.[T][X] stable task
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+```
+
+## TC8: Delete and renumber tasks
+
+**Aim:** Verify deletion of middle, first, and last tasks, including the removed-task message, count, status, and list renumbering.
+
+**Inputs:**
+
+```text
+todo read book
+deadline return book /by Sunday
+event project meeting /from Mon /to Tue
+todo join club
+mark 2
+delete 2
+list
+delete 1
+delete 2
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [E][ ] project meeting (from: Mon to: Tue)
+Now you have 3 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [T][ ] join club
+Now you have 4 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Nice! I've marked this task as done:
+  [D][X] return book (by: Sunday)
+{{DIVIDER}}
+{{DIVIDER}}
+Noted. I've removed this task:
+  [D][X] return book (by: Sunday)
+Now you have 3 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[E][ ] project meeting (from: Mon to: Tue)
+3.[T][ ] join club
+{{DIVIDER}}
+{{DIVIDER}}
+Noted. I've removed this task:
+  [T][ ] read book
+Now you have 2 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Noted. I've removed this task:
+  [T][ ] join club
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[E][ ] project meeting (from: Mon to: Tue)
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+```
+
+## TC9: Reject invalid deletions
+
+**Aim:** Verify missing, malformed, and out-of-range delete numbers do not remove tasks and deletion from an empty list is handled.
+
+**Inputs:**
+
+```text
+delete
+delete 1
+todo safe task
+delete zero
+delete 0
+delete 2
+delete 1 extra
+list
+delete 1
+list
+delete 1
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+OOPS!!! Please provide a task number. Try: delete <number>
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! There are no tasks to delete.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [T][ ] safe task
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The task number must be a whole number.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! Choose a task number from 1 to 1.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! Choose a task number from 1 to 1.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The task number must be a whole number.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[T][ ] safe task
+{{DIVIDER}}
+{{DIVIDER}}
+Noted. I've removed this task:
+  [T][ ] safe task
+Now you have 0 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the tasks in your list:
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! There are no tasks to delete.
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!
