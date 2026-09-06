@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,6 +7,8 @@ import java.util.Scanner;
  * Runs the Twizzy chatbot and manages its in-memory task list.
  */
 public class Twizzy {
+    private static final Path DATA_FILE_PATH = Path.of("data", "twizzy.txt");
+
     /**
      * Reads commands from standard input until the user exits the chatbot.
      *
@@ -13,7 +17,8 @@ public class Twizzy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String divider = "____________________________________________________________";
-        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(DATA_FILE_PATH);
+        ArrayList<Task> tasks;
         String banner = " _______        _                     \n"
                 + "|__   __|      (_)                    \n"
                 + "   | |_      ___ __________   _       \n"
@@ -28,6 +33,14 @@ public class Twizzy {
         System.out.println("Hello! I'm Twizzy.");
         System.out.println("What can I do for you?");
         System.out.println(divider);
+
+        try {
+            tasks = storage.load();
+        } catch (IOException exception) {
+            tasks = new ArrayList<>();
+            System.out.println("OOPS!!! I couldn't load saved tasks: " + exception.getMessage());
+            System.out.println(divider);
+        }
 
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
@@ -51,6 +64,7 @@ public class Twizzy {
                 case MARK: {
                     int taskIndex = parseTaskIndex(command, commandType, tasks.size());
                     tasks.get(taskIndex).markAsDone();
+                    storage.save(tasks);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tasks.get(taskIndex));
                     break;
@@ -58,6 +72,7 @@ public class Twizzy {
                 case UNMARK: {
                     int taskIndex = parseTaskIndex(command, commandType, tasks.size());
                     tasks.get(taskIndex).markAsNotDone();
+                    storage.save(tasks);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(taskIndex));
                     break;
@@ -65,6 +80,7 @@ public class Twizzy {
                 case DELETE: {
                     int taskIndex = parseTaskIndex(command, commandType, tasks.size());
                     Task removedTask = tasks.remove(taskIndex);
+                    storage.save(tasks);
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + removedTask);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
@@ -77,6 +93,7 @@ public class Twizzy {
                 case UNKNOWN: {
                     Task newTask = parseTask(command, commandType);
                     tasks.add(newTask);
+                    storage.save(tasks);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask);
                     String taskWord = tasks.size() == 1 ? "task" : "tasks";
@@ -86,7 +103,7 @@ public class Twizzy {
                 case BYE:
                     break;
                 }
-            } catch (TwizzyException exception) {
+            } catch (TwizzyException | IOException exception) {
                 System.out.println("OOPS!!! " + exception.getMessage());
             }
 

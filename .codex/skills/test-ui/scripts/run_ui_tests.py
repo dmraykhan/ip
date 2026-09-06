@@ -66,6 +66,20 @@ def print_transcript(case: TestCase, actual: str) -> None:
     print(actual)
 
 
+def split_sessions(commands: str) -> list[str]:
+    """Split commands at restart markers without discarding intentional blank input."""
+    sessions = []
+    current_lines = []
+    for line in commands.splitlines(keepends=True):
+        if line.strip() == "{{RESTART}}":
+            sessions.append("".join(current_lines))
+            current_lines = []
+        else:
+            current_lines.append(line)
+    sessions.append("".join(current_lines))
+    return sessions
+
+
 def fail(case: TestCase, actual: str, reason: str) -> int:
     """Report one failed case with expected and actual output."""
     print_transcript(case, actual)
@@ -120,23 +134,31 @@ def main() -> int:
             return 2
 
         for case in cases:
-            try:
-                result = subprocess.run(
-                    ["java", "-cp", build_directory, "Twizzy"],
-                    input=case.commands + "\n",
-                    capture_output=True,
-                    text=True,
-                    timeout=10,
-                    check=False,
-                )
-            except subprocess.TimeoutExpired as error:
-                return fail(case, error.stdout or "", "program timed out after 10 seconds")
+            actual_parts = []
+            with tempfile.TemporaryDirectory(prefix="twizzy-ui-case-") as case_directory:
+                for commands in split_sessions(case.commands):
+                    try:
+                        result = subprocess.run(
+                            ["java", "-cp", build_directory, "Twizzy"],
+                            input=commands if commands.endswith("\n") else commands + "\n",
+                            capture_output=True,
+                            text=True,
+                            timeout=10,
+                            check=False,
+                            cwd=case_directory,
+                        )
+                    except subprocess.TimeoutExpired as error:
+                        return fail(case, error.stdout or "", "program timed out after 10 seconds")
 
-            actual = result.stdout.rstrip("\n")
-            if result.returncode != 0:
-                return fail(case, actual, f"program exited with status {result.returncode}; stderr: {result.stderr}")
-            if result.stderr:
-                return fail(case, actual, f"program wrote to stderr: {result.stderr}")
+                    actual_parts.append(result.stdout.rstrip("\n"))
+                    if result.returncode != 0:
+                        actual = "\n".join(actual_parts)
+                        return fail(case, actual, f"program exited with status {result.returncode}; stderr: {result.stderr}")
+                    if result.stderr:
+                        actual = "\n".join(actual_parts)
+                        return fail(case, actual, f"program wrote to stderr: {result.stderr}")
+
+            actual = "\n".join(actual_parts)
             if actual != case.expected:
                 return fail(case, actual, "actual output did not match expected output")
 

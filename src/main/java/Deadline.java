@@ -16,6 +16,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the saved deadline text.
+     *
+     * @return deadline text supplied by the user
+     */
+    public String getBy() {
+        return by;
+    }
+
+    /**
      * Formats this task with its deadline details.
      *
      * @return display form of this deadline
