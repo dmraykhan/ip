@@ -1,5 +1,9 @@
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,6 +12,8 @@ import java.util.Scanner;
  */
 public class Twizzy {
     private static final Path DATA_FILE_PATH = Path.of("data", "twizzy.txt");
+    private static final DateTimeFormatter INPUT_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Reads commands from standard input until the user exits the chatbot.
@@ -138,18 +144,18 @@ public class Twizzy {
             String details = command.substring(8).trim();
             int byIndex = findCommandMarker(details, "/by", 0);
             if (byIndex < 0) {
-                throw new TwizzyException("A deadline needs /by followed by a time.");
+                throw new TwizzyException("A deadline needs /by followed by a date.");
             }
             String description = details.substring(0, byIndex).trim();
             String by = details.substring(byIndex + 3).trim();
             if (description.isEmpty()) {
                 throw new TwizzyException(
-                        "A deadline needs a description. Try: deadline <description> /by <time>");
+                        "A deadline needs a description. Try: deadline <description> /by <date>");
             }
             if (by.isEmpty()) {
-                throw new TwizzyException("The deadline time cannot be empty after /by.");
+                throw new TwizzyException("The deadline date cannot be empty after /by.");
             }
-            return new Deadline(description, by);
+            return new Deadline(description, parseDate(by, "deadline"));
         }
 
         if (commandType == CommandType.EVENT) {
@@ -159,29 +165,47 @@ public class Twizzy {
                     ? -1
                     : findCommandMarker(details, "/to", fromIndex + 5);
             if (fromIndex < 0) {
-                throw new TwizzyException("An event needs /from followed by a start time.");
+                throw new TwizzyException("An event needs /from followed by a start date.");
             }
             if (toIndex < 0) {
-                throw new TwizzyException("An event needs /to followed by an end time.");
+                throw new TwizzyException("An event needs /to followed by an end date.");
             }
             String description = details.substring(0, fromIndex).trim();
             String from = details.substring(fromIndex + 5, toIndex).trim();
             String to = details.substring(toIndex + 3).trim();
             if (description.isEmpty()) {
                 throw new TwizzyException(
-                        "An event needs a description. Try: event <description> /from <start> /to <end>");
+                        "An event needs a description. Try: event <description> /from <start-date> /to <end-date>");
             }
             if (from.isEmpty()) {
-                throw new TwizzyException("The event start time cannot be empty after /from.");
+                throw new TwizzyException("The event start date cannot be empty after /from.");
             }
             if (to.isEmpty()) {
-                throw new TwizzyException("The event end time cannot be empty after /to.");
+                throw new TwizzyException("The event end date cannot be empty after /to.");
             }
-            return new Event(description, from, to);
+            return new Event(description, parseDate(from, "event start"),
+                    parseDate(to, "event end"));
         }
 
         throw new TwizzyException(
                 "I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.");
+    }
+
+    /**
+     * Parses a date in Twizzy's required ISO input format.
+     *
+     * @param dateText date supplied by the user
+     * @param fieldName field name used in an error message
+     * @return parsed date
+     * @throws TwizzyException if the date is not a real date in yyyy-MM-dd format
+     */
+    private static LocalDate parseDate(String dateText, String fieldName) throws TwizzyException {
+        try {
+            return LocalDate.parse(dateText, INPUT_DATE_FORMAT);
+        } catch (DateTimeParseException exception) {
+            throw new TwizzyException(
+                    "The " + fieldName + " date must be a valid date in yyyy-MM-dd format.");
+        }
     }
 
     /**

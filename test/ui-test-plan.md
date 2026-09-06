@@ -115,13 +115,13 @@ Bye. Hope to see you again soon!
 
 ## TC4: Add deadlines and events
 
-**Aim:** Verify that deadline and event details are retained as text and displayed with their task types.
+**Aim:** Verify valid deadline and event dates are parsed and displayed in a friendlier format.
 
 **Inputs:**
 
 ```text
-deadline do homework /by no idea :-p
-event project meeting /from Mon 2pm /to 4pm
+deadline do homework /by 2026-09-18
+event project meeting /from 2026-09-21 /to 2026-09-22
 list
 bye
 ```
@@ -132,18 +132,18 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Got it. I've added this task:
-  [D][ ] do homework (by: no idea :-p)
+  [D][ ] do homework (by: Sep 18 2026)
 Now you have 1 task in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 Now you have 2 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the tasks in your list:
-1.[D][ ] do homework (by: no idea :-p)
-2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[D][ ] do homework (by: Sep 18 2026)
+2.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!
@@ -213,8 +213,11 @@ event meeting /from /to Tue
 event meeting /from Mon /to
 event lunch /fromage /toffee
 event lunch /from Mon /today
-deadline report /by Sunday
-event meeting /from Mon /to Tue
+deadline impossible /by 2025-02-29
+event meeting /from Monday /to 2026-09-22
+event meeting /from 2026-09-21 /to tomorrow
+deadline report /by 2024-02-29
+event meeting /from 2026-09-21 /to 2026-09-22
 list
 bye
 ```
@@ -224,52 +227,61 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-OOPS!!! A deadline needs /by followed by a time.
+OOPS!!! A deadline needs /by followed by a date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! A deadline needs a description. Try: deadline <description> /by <time>
+OOPS!!! A deadline needs a description. Try: deadline <description> /by <date>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The deadline time cannot be empty after /by.
+OOPS!!! The deadline date cannot be empty after /by.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! A deadline needs /by followed by a time.
+OOPS!!! A deadline needs /by followed by a date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs /from followed by a start time.
+OOPS!!! An event needs /from followed by a start date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs a description. Try: event <description> /from <start> /to <end>
+OOPS!!! An event needs a description. Try: event <description> /from <start-date> /to <end-date>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs /to followed by an end time.
+OOPS!!! An event needs /to followed by an end date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The event start time cannot be empty after /from.
+OOPS!!! The event start date cannot be empty after /from.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The event end time cannot be empty after /to.
+OOPS!!! The event end date cannot be empty after /to.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs /from followed by a start time.
+OOPS!!! An event needs /from followed by a start date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs /to followed by an end time.
+OOPS!!! An event needs /to followed by an end date.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The deadline date must be a valid date in yyyy-MM-dd format.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The event start date must be a valid date in yyyy-MM-dd format.
+{{DIVIDER}}
+{{DIVIDER}}
+OOPS!!! The event end date must be a valid date in yyyy-MM-dd format.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:
-  [D][ ] report (by: Sunday)
+  [D][ ] report (by: Feb 29 2024)
 Now you have 1 task in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:
-  [E][ ] meeting (from: Mon to: Tue)
+  [E][ ] meeting (from: Sep 21 2026 to: Sep 22 2026)
 Now you have 2 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the tasks in your list:
-1.[D][ ] report (by: Sunday)
-2.[E][ ] meeting (from: Mon to: Tue)
+1.[D][ ] report (by: Feb 29 2024)
+2.[E][ ] meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!
@@ -355,8 +367,8 @@ Bye. Hope to see you again soon!
 
 ```text
 todo read book
-deadline return book /by Sunday
-event project meeting /from Mon /to Tue
+deadline return book /by 2026-09-20
+event project meeting /from 2026-09-21 /to 2026-09-22
 todo join club
 mark 2
 delete 2
@@ -378,12 +390,12 @@ Now you have 1 task in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Sep 20 2026)
 Now you have 2 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon to: Tue)
+  [E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 Now you have 3 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
@@ -393,17 +405,17 @@ Now you have 4 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Nice! I've marked this task as done:
-  [D][X] return book (by: Sunday)
+  [D][X] return book (by: Sep 20 2026)
 {{DIVIDER}}
 {{DIVIDER}}
 Noted. I've removed this task:
-  [D][X] return book (by: Sunday)
+  [D][X] return book (by: Sep 20 2026)
 Now you have 3 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the tasks in your list:
 1.[T][ ] read book
-2.[E][ ] project meeting (from: Mon to: Tue)
+2.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 3.[T][ ] join club
 {{DIVIDER}}
 {{DIVIDER}}
@@ -418,7 +430,7 @@ Now you have 1 task in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the tasks in your list:
-1.[E][ ] project meeting (from: Mon to: Tue)
+1.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!
@@ -555,8 +567,8 @@ Bye. Hope to see you again soon!
 
 ```text
 todo read A | B
-deadline submit work /by Friday
-event consultation /from 2pm /to 3pm
+deadline submit work /by 2026-09-18
+event consultation /from 2026-09-21 /to 2026-09-22
 mark 2
 bye
 {{RESTART}}
@@ -580,17 +592,17 @@ Now you have 1 task in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:
-  [D][ ] submit work (by: Friday)
+  [D][ ] submit work (by: Sep 18 2026)
 Now you have 2 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Got it. I've added this task:
-  [E][ ] consultation (from: 2pm to: 3pm)
+  [E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
 Now you have 3 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 Nice! I've marked this task as done:
-  [D][X] submit work (by: Friday)
+  [D][X] submit work (by: Sep 18 2026)
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!
@@ -599,8 +611,8 @@ Bye. Hope to see you again soon!
 {{DIVIDER}}
 Here are the tasks in your list:
 1.[T][ ] read A | B
-2.[D][X] submit work (by: Friday)
-3.[E][ ] consultation (from: 2pm to: 3pm)
+2.[D][X] submit work (by: Sep 18 2026)
+3.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
 Noted. I've removed this task:
@@ -609,7 +621,7 @@ Now you have 2 tasks in the list.
 {{DIVIDER}}
 {{DIVIDER}}
 OK, I've marked this task as not done yet:
-  [D][ ] submit work (by: Friday)
+  [D][ ] submit work (by: Sep 18 2026)
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!
@@ -617,8 +629,8 @@ Bye. Hope to see you again soon!
 {{STARTUP}}
 {{DIVIDER}}
 Here are the tasks in your list:
-1.[D][ ] submit work (by: Friday)
-2.[E][ ] consultation (from: 2pm to: 3pm)
+1.[D][ ] submit work (by: Sep 18 2026)
+2.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!

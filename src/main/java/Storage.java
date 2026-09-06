@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,12 +69,12 @@ public class Storage {
         String status = task.isDone() ? "1" : "0";
         if (task instanceof Deadline deadline) {
             return "D" + FIELD_SEPARATOR + status + FIELD_SEPARATOR
-                    + escape(deadline.getDescription()) + FIELD_SEPARATOR + escape(deadline.getBy());
+                    + escape(deadline.getDescription()) + FIELD_SEPARATOR + deadline.getBy();
         }
         if (task instanceof Event event) {
             return "E" + FIELD_SEPARATOR + status + FIELD_SEPARATOR
                     + escape(event.getDescription()) + FIELD_SEPARATOR
-                    + escape(event.getFrom()) + FIELD_SEPARATOR + escape(event.getTo());
+                    + event.getFrom() + FIELD_SEPARATOR + event.getTo();
         }
         return "T" + FIELD_SEPARATOR + status + FIELD_SEPARATOR + escape(task.getDescription());
     }
@@ -92,11 +93,12 @@ public class Storage {
             break;
         case "D":
             requireFieldCount(fields, 4);
-            task = new Deadline(fields.get(2), fields.get(3));
+            task = new Deadline(fields.get(2), LocalDate.parse(fields.get(3)));
             break;
         case "E":
             requireFieldCount(fields, 5);
-            task = new Event(fields.get(2), fields.get(3), fields.get(4));
+            task = new Event(fields.get(2), LocalDate.parse(fields.get(3)),
+                    LocalDate.parse(fields.get(4)));
             break;
         default:
             throw new IllegalArgumentException("Unknown task type");

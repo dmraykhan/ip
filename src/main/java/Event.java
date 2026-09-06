@@ -1,38 +1,45 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 /**
- * Represents a task that takes place between specified start and end times.
+ * Represents a task that takes place between specified start and end dates.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    private static final DateTimeFormatter DISPLAY_FORMAT =
+            DateTimeFormatter.ofPattern("MMM d uuuu", Locale.ENGLISH);
+
+    protected LocalDate from;
+    protected LocalDate to;
 
     /**
      * Creates an incomplete event task.
      *
      * @param description description of the task
-     * @param from start text supplied by the user
-     * @param to end text supplied by the user
+     * @param from start date
+     * @param to end date
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
     /**
-     * Returns the saved event start text.
+     * Returns the event start date.
      *
-     * @return start text supplied by the user
+     * @return start date
      */
-    public String getFrom() {
+    public LocalDate getFrom() {
         return from;
     }
 
     /**
-     * Returns the saved event end text.
+     * Returns the event end date.
      *
-     * @return end text supplied by the user
+     * @return end date
      */
-    public String getTo() {
+    public LocalDate getTo() {
         return to;
     }
 
@@ -43,6 +50,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DISPLAY_FORMAT)
+                + " to: " + to.format(DISPLAY_FORMAT) + ")";
     }
 }
