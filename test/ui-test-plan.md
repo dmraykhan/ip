@@ -2,6 +2,8 @@
 
 Run these cases with the project-specific `$test-ui` skill. Each case starts a fresh Twizzy process, uses Java 25, and compares standard output exactly. `{{STARTUP}}` expands to the banner and greeting, while `{{DIVIDER}}` expands to the 60-character separator.
 
+Within a case, `{{RESTART}}` stops Twizzy and starts it again in the same temporary directory so saved data can be checked.
+
 ## TC1: Exit the chatbot
 
 **Aim:** Verify that `bye` prints the farewell and terminates normally.
@@ -539,6 +541,84 @@ Now you have 1 task in the list.
 {{DIVIDER}}
 Here are the tasks in your list:
 1.[T][ ] valid task
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+```
+
+## TC11: Save and reload tasks
+
+**Aim:** Verify todos, deadlines, events, and completion state survive a restart, and later changes remain persistent.
+
+**Inputs:**
+
+```text
+todo read A | B
+deadline submit work /by Friday
+event consultation /from 2pm /to 3pm
+mark 2
+bye
+{{RESTART}}
+list
+delete 1
+unmark 1
+bye
+{{RESTART}}
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [T][ ] read A | B
+Now you have 1 task in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [D][ ] submit work (by: Friday)
+Now you have 2 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Got it. I've added this task:
+  [E][ ] consultation (from: 2pm to: 3pm)
+Now you have 3 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+Nice! I've marked this task as done:
+  [D][X] submit work (by: Friday)
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+{{STARTUP}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[T][ ] read A | B
+2.[D][X] submit work (by: Friday)
+3.[E][ ] consultation (from: 2pm to: 3pm)
+{{DIVIDER}}
+{{DIVIDER}}
+Noted. I've removed this task:
+  [T][ ] read A | B
+Now you have 2 tasks in the list.
+{{DIVIDER}}
+{{DIVIDER}}
+OK, I've marked this task as not done yet:
+  [D][ ] submit work (by: Friday)
+{{DIVIDER}}
+{{DIVIDER}}
+Bye. Hope to see you again soon!
+{{DIVIDER}}
+{{STARTUP}}
+{{DIVIDER}}
+Here are the tasks in your list:
+1.[D][ ] submit work (by: Friday)
+2.[E][ ] consultation (from: 2pm to: 3pm)
 {{DIVIDER}}
 {{DIVIDER}}
 Bye. Hope to see you again soon!
