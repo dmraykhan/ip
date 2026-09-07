@@ -21,7 +21,8 @@ BANNER = r""" _______        _
    |_| \_/\_/ |_/___/___| \__, |      
                            __/ |      
                           |___/"""
-STARTUP = f"{DIVIDER}\n{BANNER}\nHello! I'm Twizzy.\nWhat can I do for you?\n{DIVIDER}"
+STARTUP = (f"{DIVIDER}\n{BANNER}\nYo, I'm Twizzy — your task-list twin.\n"
+           f"Drop a command. I'll keep the chaos organized.\n{DIVIDER}")
 
 
 @dataclass(frozen=True)

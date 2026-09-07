@@ -18,8 +18,8 @@ public class Ui {
     public void showWelcome() {
         System.out.println(DIVIDER);
         System.out.println(BANNER);
-        System.out.println("Hello! I'm Twizzy.");
-        System.out.println("What can I do for you?");
+        System.out.println("Yo, I'm Twizzy — your task-list twin.");
+        System.out.println("Drop a command. I'll keep the chaos organized.");
         System.out.println(DIVIDER);
     }
 
@@ -40,17 +40,17 @@ public class Ui {
 
     /** Displays Twizzy's farewell message. */
     public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("I'm out. Your tasks aren't — don't ghost them.");
     }
 
     /** Displays a user-facing error. */
     public void showError(String message) {
-        System.out.println("OOPS!!! " + message);
+        System.out.println("Yeah, no. " + message);
     }
 
     /** Displays all tasks in their current order. */
     public void showTaskList(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here's the current chaos:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
@@ -58,26 +58,26 @@ public class Ui {
 
     /** Displays confirmation that a task was added. */
     public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Locked in. I added:");
         System.out.println("  " + task);
         showTaskCount(taskCount);
     }
 
     /** Displays confirmation that a task was marked as completed. */
     public void showTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Huge. One less thing haunting you:");
         System.out.println("  " + task);
     }
 
     /** Displays confirmation that a task was marked as incomplete. */
     public void showTaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("Plot twist. This one's back:");
         System.out.println("  " + task);
     }
 
     /** Displays confirmation that a task was removed. */
     public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Gone. We never knew this task:");
         System.out.println("  " + task);
         showTaskCount(taskCount);
     }
@@ -89,6 +89,6 @@ public class Ui {
 
     private void showTaskCount(int taskCount) {
         String taskWord = taskCount == 1 ? "task" : "tasks";
-        System.out.println("Now you have " + taskCount + " " + taskWord + " in the list.");
+        System.out.println("You're juggling " + taskCount + " " + taskWord + " now.");
     }
 }
