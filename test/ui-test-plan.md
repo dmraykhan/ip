@@ -19,7 +19,7 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -41,22 +41,22 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] read book
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] return book
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][ ] read book
 2.[T][ ] return book
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -81,35 +81,35 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] read book
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] return book
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Nice! I've marked this task as done:
+Huge. One less thing haunting you:
   [T][X] return book
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][ ] read book
 2.[T][X] return book
 {{DIVIDER}}
 {{DIVIDER}}
-OK, I've marked this task as not done yet:
+Plot twist. This one's back:
   [T][ ] return book
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][ ] read book
 2.[T][ ] return book
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -131,22 +131,22 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [D][ ] do homework (by: Sep 18 2026)
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[D][ ] do homework (by: Sep 18 2026)
 2.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -170,28 +170,28 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] first task
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! A todo needs a description. Try: todo <description>
+Yeah, no. A todo needs a description. Try: todo <description>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] second task
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][ ] first task
 2.[T][ ] second task
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -227,64 +227,64 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-OOPS!!! A deadline needs /by followed by a date.
+Yeah, no. A deadline needs /by followed by a date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! A deadline needs a description. Try: deadline <description> /by <date>
+Yeah, no. A deadline needs a description. Try: deadline <description> /by <date>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The deadline date cannot be empty after /by.
+Yeah, no. The deadline date cannot be empty after /by.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! A deadline needs /by followed by a date.
+Yeah, no. A deadline needs /by followed by a date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs /from followed by a start date.
+Yeah, no. An event needs /from followed by a start date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs a description. Try: event <description> /from <start-date> /to <end-date>
+Yeah, no. An event needs a description. Try: event <description> /from <start-date> /to <end-date>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs /to followed by an end date.
+Yeah, no. An event needs /to followed by an end date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The event start date cannot be empty after /from.
+Yeah, no. The event start date cannot be empty after /from.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The event end date cannot be empty after /to.
+Yeah, no. The event end date cannot be empty after /to.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs /from followed by a start date.
+Yeah, no. An event needs /from followed by a start date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! An event needs /to followed by an end date.
+Yeah, no. An event needs /to followed by an end date.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The deadline date must be a valid date in yyyy-MM-dd format.
+Yeah, no. The deadline date must be a valid date in yyyy-MM-dd format.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The event start date must be a valid date in yyyy-MM-dd format.
+Yeah, no. The event start date must be a valid date in yyyy-MM-dd format.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The event end date must be a valid date in yyyy-MM-dd format.
+Yeah, no. The event end date must be a valid date in yyyy-MM-dd format.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [D][ ] report (by: Feb 29 2024)
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [E][ ] meeting (from: Sep 21 2026 to: Sep 22 2026)
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[D][ ] report (by: Feb 29 2024)
 2.[E][ ] meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -315,47 +315,47 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-OOPS!!! Please enter a command.
+Yeah, no. Please enter a command.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! Please provide a task number. Try: mark <number>
+Yeah, no. Please provide a task number. Try: mark <number>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! There are no tasks to unmark.
+Yeah, no. There are no tasks to unmark.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] stable task
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The task number must be a whole number.
+Yeah, no. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! Choose a task number from 1 to 1.
+Yeah, no. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! Choose a task number from 1 to 1.
+Yeah, no. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! Please provide a task number. Try: unmark <number>
+Yeah, no. Please provide a task number. Try: unmark <number>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The task number must be a whole number.
+Yeah, no. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! Choose a task number from 1 to 1.
+Yeah, no. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-Nice! I've marked this task as done:
+Huge. One less thing haunting you:
   [T][X] stable task
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][X] stable task
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -384,56 +384,56 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] read book
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [D][ ] return book (by: Sep 20 2026)
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
-Now you have 3 tasks in the list.
+You're juggling 3 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] join club
-Now you have 4 tasks in the list.
+You're juggling 4 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Nice! I've marked this task as done:
+Huge. One less thing haunting you:
   [D][X] return book (by: Sep 20 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Noted. I've removed this task:
+Gone. We never knew this task:
   [D][X] return book (by: Sep 20 2026)
-Now you have 3 tasks in the list.
+You're juggling 3 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][ ] read book
 2.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 3.[T][ ] join club
 {{DIVIDER}}
 {{DIVIDER}}
-Noted. I've removed this task:
+Gone. We never knew this task:
   [T][ ] read book
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Noted. I've removed this task:
+Gone. We never knew this task:
   [T][ ] join club
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -463,45 +463,45 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-OOPS!!! Please provide a task number. Try: delete <number>
+Yeah, no. Please provide a task number. Try: delete <number>
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! There are no tasks to delete.
+Yeah, no. There are no tasks to delete.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] safe task
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The task number must be a whole number.
+Yeah, no. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! Choose a task number from 1 to 1.
+Yeah, no. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! Choose a task number from 1 to 1.
+Yeah, no. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! The task number must be a whole number.
+Yeah, no. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][ ] safe task
 {{DIVIDER}}
 {{DIVIDER}}
-Noted. I've removed this task:
+Gone. We never knew this task:
   [T][ ] safe task
-Now you have 0 tasks in the list.
+You're juggling 0 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! There are no tasks to delete.
+Yeah, no. There are no tasks to delete.
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -528,34 +528,34 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-OOPS!!! I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] valid task
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][ ] valid task
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
@@ -586,53 +586,53 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [T][ ] read A | B
-Now you have 1 task in the list.
+You're juggling 1 task now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [D][ ] submit work (by: Sep 18 2026)
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Got it. I've added this task:
+Locked in. I added:
   [E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
-Now you have 3 tasks in the list.
+You're juggling 3 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-Nice! I've marked this task as done:
+Huge. One less thing haunting you:
   [D][X] submit work (by: Sep 18 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 {{STARTUP}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[T][ ] read A | B
 2.[D][X] submit work (by: Sep 18 2026)
 3.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Noted. I've removed this task:
+Gone. We never knew this task:
   [T][ ] read A | B
-Now you have 2 tasks in the list.
+You're juggling 2 tasks now.
 {{DIVIDER}}
 {{DIVIDER}}
-OK, I've marked this task as not done yet:
+Plot twist. This one's back:
   [D][ ] submit work (by: Sep 18 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 {{STARTUP}}
 {{DIVIDER}}
-Here are the tasks in your list:
+Here's the current chaos:
 1.[D][ ] submit work (by: Sep 18 2026)
 2.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Bye. Hope to see you again soon!
+I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
