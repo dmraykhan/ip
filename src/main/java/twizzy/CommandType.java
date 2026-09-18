@@ -1,3 +1,5 @@
+package twizzy;
+
 /**
  * Identifies the supported user command keywords.
  */

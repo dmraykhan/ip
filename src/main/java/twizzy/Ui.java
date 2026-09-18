@@ -1,3 +1,5 @@
+package twizzy;
+
 import java.util.Scanner;
 
 /** Handles console input and output for Twizzy. */

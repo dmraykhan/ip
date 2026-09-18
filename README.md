@@ -21,7 +21,7 @@ Twizzy requires **JDK 25**.
 1. Clone this repository.
 2. Open the project in IntelliJ IDEA.
 3. Set the project SDK and language level to JDK 25.
-4. Open `src/main/java/Twizzy.java`.
+4. Open `src/main/java/twizzy/Twizzy.java`.
 5. Run `Twizzy.main()`.
 
 You should see:
@@ -84,7 +84,7 @@ The exact console regression suite is documented in `test/ui-test-plan.md`. It c
 ## Project structure
 
 ```text
-src/main/java/
+src/main/java/twizzy/
 ├── Twizzy.java       Coordinates the application
 ├── Ui.java           Handles console input and output
 ├── Parser.java       Validates and interprets commands

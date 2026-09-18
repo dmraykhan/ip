@@ -117,7 +117,7 @@ def main() -> int:
         print(f"Java 25 is required; found: {version_text or 'javac unavailable'}", file=sys.stderr)
         return 2
 
-    sources = sorted(Path("src/main/java").glob("*.java"))
+    sources = sorted(Path("src/main/java").rglob("*.java"))
     if not sources:
         print("No Java source files found in src/main/java", file=sys.stderr)
         return 2
@@ -140,7 +140,7 @@ def main() -> int:
                 for commands in split_sessions(case.commands):
                     try:
                         result = subprocess.run(
-                            ["java", "-cp", build_directory, "Twizzy"],
+                            ["java", "-cp", build_directory, "twizzy.Twizzy"],
                             input=commands if commands.endswith("\n") else commands + "\n",
                             capture_output=True,
                             text=True,

@@ -1,3 +1,5 @@
+package twizzy;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -27,6 +29,7 @@ public class Twizzy {
     public void run() {
         ui.showWelcome();
         loadTasks();
+
         while (ui.hasNextCommand()) {
             String command = ui.readCommand();
             CommandType commandType = CommandType.from(command);
