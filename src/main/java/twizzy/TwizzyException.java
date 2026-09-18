@@ -1,3 +1,5 @@
+package twizzy;
+
 /**
  * Represents an invalid command or command argument supplied to Twizzy.
  */
