@@ -62,6 +62,9 @@ public class Twizzy {
     private void execute(String command, CommandType commandType)
             throws TwizzyException, IOException {
         switch (commandType) {
+        case FIND:
+            findTasks(command);
+            break;
         case LIST:
             ui.showTaskList(tasks);
             break;
@@ -83,6 +86,11 @@ public class Twizzy {
         case BYE:
             break;
         }
+    }
+
+    private void findTasks(String command) throws TwizzyException {
+        String keyword = parser.parseFindKeyword(command);
+        ui.showMatchingTasks(tasks.findTasks(keyword));
     }
 
     private void addTask(String command, CommandType commandType)

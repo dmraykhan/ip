@@ -2,6 +2,7 @@ package twizzy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /** Manages the collection of tasks used by Twizzy. */
 public class TaskList {
@@ -35,5 +36,22 @@ public class TaskList {
     /** Returns a read-only task view for persistence. */
     public List<Task> asList() {
         return List.copyOf(tasks);
+    }
+
+    /**
+     * Returns tasks whose descriptions contain the keyword, ignoring letter case.
+     *
+     * @param keyword text to search for
+     * @return matching tasks in their original order
+     */
+    public List<Task> findTasks(String keyword) {
+        String lowercaseKeyword = keyword.toLowerCase(Locale.ROOT);
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase(Locale.ROOT).contains(lowercaseKeyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }

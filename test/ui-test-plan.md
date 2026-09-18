@@ -23,6 +23,57 @@ I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
 
+## TC12: Find matching tasks
+
+**Aim:** Verify that find returns case-insensitive description matches in task-list order and rejects a missing keyword.
+
+**Inputs:**
+
+```text
+todo read book
+deadline return BOOK /by 2026-09-20
+event club meeting /from 2026-09-21 /to 2026-09-22
+find book
+find
+find absent
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Locked in. I added:
+  [T][ ] read book
+You're juggling 1 task now.
+{{DIVIDER}}
+{{DIVIDER}}
+Locked in. I added:
+  [D][ ] return BOOK (by: Sep 20 2026)
+You're juggling 2 tasks now.
+{{DIVIDER}}
+{{DIVIDER}}
+Locked in. I added:
+  [E][ ] club meeting (from: Sep 21 2026 to: Sep 22 2026)
+You're juggling 3 tasks now.
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the matching tasks in your list:
+1.[T][ ] read book
+2.[D][ ] return BOOK (by: Sep 20 2026)
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. Please provide a keyword. Try: find <keyword>
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the matching tasks in your list:
+{{DIVIDER}}
+{{DIVIDER}}
+I'm out. Your tasks aren't — don't ghost them.
+{{DIVIDER}}
+```
+
 ## TC2: Add and list tasks
 
 **Aim:** Verify that task text is stored and listed in insertion order with pending status icons.
@@ -178,7 +229,7 @@ You're juggling 1 task now.
 Yeah, no. A todo needs a description. Try: todo <description>
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in. I added:
@@ -528,22 +579,22 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in. I added:

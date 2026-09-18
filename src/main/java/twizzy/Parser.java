@@ -29,7 +29,7 @@ public class Parser {
             return parseEvent(command);
         }
         throw new TwizzyException(
-                "I don't recognize that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.");
+                "I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.");
     }
 
     /** Parses the task number in a command that selects one task. */
@@ -55,6 +55,15 @@ public class Parser {
             throw new TwizzyException("Choose a task number from 1 to " + taskCount + ".");
         }
         return taskNumber - 1;
+    }
+
+    /** Parses and validates the keyword supplied to the find command. */
+    public String parseFindKeyword(String command) throws TwizzyException {
+        String keyword = command.substring(CommandType.FIND.getKeyword().length()).trim();
+        if (keyword.isEmpty()) {
+            throw new TwizzyException("Please provide a keyword. Try: find <keyword>");
+        }
+        return keyword;
     }
 
     private Task parseDeadline(String command) throws TwizzyException {
