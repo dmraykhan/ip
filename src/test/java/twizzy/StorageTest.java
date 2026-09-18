@@ -1,0 +1,54 @@
+package twizzy;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+/** Tests loading and saving task data. */
+class StorageTest {
+    @TempDir
+    Path temporaryDirectory;
+
+    @Test
+    void saveThenLoad_mixedTasks_preservesTypeDetailsAndCompletionState() throws IOException {
+        Storage storage = new Storage(temporaryDirectory.resolve("data").resolve("tasks.txt"));
+        Todo todo = new Todo("read A | B");
+        Deadline deadline = new Deadline("submit report", LocalDate.of(2026, 9, 30));
+        deadline.markAsDone();
+        Event event = new Event("project meeting", LocalDate.of(2026, 9, 21),
+                LocalDate.of(2026, 9, 22));
+
+        storage.save(List.of(todo, deadline, event));
+        List<Task> loadedTasks = storage.load();
+
+        assertEquals(List.of("[T][ ] read A | B", "[D][X] submit report (by: Sep 30 2026)",
+                "[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)"),
+                loadedTasks.stream().map(Task::toString).toList());
+    }
+
+    @Test
+    void load_missingFile_returnsEmptyTaskList() throws IOException {
+        Storage storage = new Storage(temporaryDirectory.resolve("new-data").resolve("tasks.txt"));
+
+        assertEquals(List.of(), storage.load());
+    }
+
+    @Test
+    void load_invalidData_throwsIOExceptionWithLineNumber() throws IOException {
+        Path dataFile = temporaryDirectory.resolve("tasks.txt");
+        Files.writeString(dataFile, "T | invalid-status | task");
+        Storage storage = new Storage(dataFile);
+
+        IOException exception = assertThrows(IOException.class, storage::load);
+
+        assertEquals("Invalid task data on line 1.", exception.getMessage());
+    }
+}
