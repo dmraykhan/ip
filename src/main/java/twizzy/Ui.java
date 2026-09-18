@@ -1,5 +1,6 @@
 package twizzy;
 
+import java.util.List;
 import java.util.Scanner;
 
 /** Handles console input and output for Twizzy. */
@@ -55,6 +56,14 @@ public class Ui {
         System.out.println("Here's the current chaos:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    /** Displays the tasks that match a user's search keyword. */
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
         }
     }
 

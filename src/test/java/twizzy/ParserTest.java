@@ -53,4 +53,12 @@ class ParserTest {
 
         assertEquals("Choose a task number from 1 to 2.", exception.getMessage());
     }
+
+    @Test
+    void parseFindKeyword_missingKeyword_throwsHelpfulException() {
+        TwizzyException exception = assertThrows(TwizzyException.class,
+                () -> parser.parseFindKeyword("find"));
+
+        assertEquals("Please provide a keyword. Try: find <keyword>", exception.getMessage());
+    }
 }
