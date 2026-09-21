@@ -2,8 +2,6 @@
 
 Twizzy is your task-list twin: it remembers the boring stuff so you do not have to keep it all in your head.
 
-Twizzy keeps things casual with phrases such as “yo”, “wsg”, “gang”, “broski”, and “twin”, but command syntax and error instructions stay precise.
-
 ## Command format
 
 - Type one command per line.
@@ -24,9 +22,9 @@ todo read chapter 3
 ```
 
 ```text
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] read chapter 3
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 ```
 
 ## Add a deadline
@@ -38,9 +36,9 @@ deadline submit report /by 2026-09-18
 ```
 
 ```text
-Locked in. I added:
+Locked in, gang. I added:
   [D][ ] submit report (by: Sep 18 2026)
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 ```
 
 ## Add an event
@@ -52,9 +50,9 @@ event hackathon /from 2026-09-21 /to 2026-09-22
 ```
 
 ```text
-Locked in. I added:
+Locked in, gang. I added:
   [E][ ] hackathon (from: Sep 21 2026 to: Sep 22 2026)
-You're juggling 3 tasks now.
+You're juggling 3 tasks now, twin.
 ```
 
 ## List tasks
@@ -62,7 +60,7 @@ You're juggling 3 tasks now.
 Use `list` to see the current task numbers and statuses.
 
 ```text
-Here's the current chaos:
+Here's the current chaos, gang:
 1.[T][ ] read chapter 3
 2.[D][ ] submit report (by: Sep 18 2026)
 3.[E][ ] hackathon (from: Sep 21 2026 to: Sep 22 2026)
@@ -93,7 +91,7 @@ snooze 2 /until 2099-12-31
 ```
 
 ```text
-Snoozed. Future you can handle this:
+Snoozed, gang. Future you can handle this:
   [D][ ] submit report (by: Sep 18 2026) (snoozed until: Dec 31 2099)
 ```
 
@@ -112,7 +110,7 @@ delete 1
 Use `bye` to close Twizzy safely.
 
 ```text
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 ```
 
 ## Saved data
@@ -128,5 +126,5 @@ deadline time travel /by 2025-02-29
 ```
 
 ```text
-Yeah, no. The deadline date must be a valid date in yyyy-MM-dd format.
+Nah, you gotta lock in, gang. The deadline date must be a valid date in yyyy-MM-dd format.
 ```
