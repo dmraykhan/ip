@@ -28,7 +28,7 @@ public class Ui {
     public void showWelcome() {
         System.out.println(DIVIDER);
         System.out.println(BANNER);
-        System.out.println("Yo, I'm Twizzy — your task-list twin.");
+        System.out.println("Wsg, gang? Yo, I'm Twizzy — your task-list twin, broski.");
         System.out.println("Drop a command. I'll keep the chaos organized.");
         System.out.println(DIVIDER);
     }

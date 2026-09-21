@@ -4,7 +4,7 @@ Run these cases with the project-specific `$test-ui` skill. Each case starts a f
 
 Within a case, `{{RESTART}}` stops Twizzy and starts it again in the same temporary directory so saved data can be checked.
 
-For GUI-only visual behavior, manually verify that a rejected command is shown in a red, bordered response bubble and that widening the window also widens long message bubbles. The console cases below continue to verify the corresponding command responses.
+For GUI-only visual behavior, manually verify that a rejected command begins with “Nah, you gotta lock in, gang.” in a red, bordered response bubble and that widening the window also widens long message bubbles. The console cases below continue to verify the corresponding command responses.
 
 ## TC1: Exit the chatbot
 
@@ -844,6 +844,52 @@ Yeah, no. An event must end after it starts.
 {{DIVIDER}}
 Here's the current chaos:
 1.[T][ ] prepare slides
+{{DIVIDER}}
+{{DIVIDER}}
+I'm out. Your tasks aren't — don't ghost them.
+{{DIVIDER}}
+```
+
+## TC16: Reject pending duplicates but allow completed tasks to be re-added
+
+**Aim:** Verify that a pending duplicate is rejected but a completed task can be added again for future work.
+
+**Inputs:**
+
+```text
+todo prepare slides
+todo PREPARE SLIDES
+mark 1
+todo PREPARE SLIDES
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Locked in. I added:
+  [T][ ] prepare slides
+You're juggling 1 task now.
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. That task is already on your list, gang. Try editing the existing one.
+{{DIVIDER}}
+{{DIVIDER}}
+Huge. One less thing haunting you:
+  [T][X] prepare slides
+{{DIVIDER}}
+{{DIVIDER}}
+Locked in. I added:
+  [T][ ] PREPARE SLIDES
+You're juggling 2 tasks now.
+{{DIVIDER}}
+{{DIVIDER}}
+Here's the current chaos:
+1.[T][X] prepare slides
+2.[T][ ] PREPARE SLIDES
 {{DIVIDER}}
 {{DIVIDER}}
 I'm out. Your tasks aren't — don't ghost them.

@@ -36,7 +36,7 @@ ____________________________________________________________
    |_| \_/\_/ |_/___/___| \__, |
                            __/ |
                           |___/
-Yo, I'm Twizzy — your task-list twin.
+Wsg, gang? Yo, I'm Twizzy — your task-list twin, broski.
 Drop a command. I'll keep the chaos organized.
 ____________________________________________________________
 ```

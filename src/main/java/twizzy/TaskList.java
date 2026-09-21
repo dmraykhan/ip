@@ -19,6 +19,17 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /**
+     * Reports whether a task with the same type, description, and dates already exists.
+     *
+     * @param task task to check before adding
+     * @return true when the task would duplicate an existing task
+     */
+    public boolean containsDuplicate(Task task) {
+        return tasks.stream().anyMatch(existingTask -> !existingTask.isDone()
+                && existingTask.hasSameDetailsAs(task));
+    }
+
     /** Returns the task at a zero-based index. */
     public Task get(int index) {
         assertValidIndex(index);

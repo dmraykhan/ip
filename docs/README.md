@@ -2,6 +2,8 @@
 
 Twizzy is your task-list twin: it remembers the boring stuff so you do not have to keep it all in your head.
 
+Twizzy keeps things casual with phrases such as “yo”, “wsg”, “gang”, “broski”, and “twin”, but command syntax and error instructions stay precise.
+
 ## Command format
 
 - Type one command per line.
@@ -115,11 +117,11 @@ I'm out. Your tasks aren't — don't ghost them.
 
 ## Saved data
 
-Twizzy saves after every successful add, mark, unmark, delete, or snooze command. On startup, it loads tasks from `data/twizzy.txt`. If the directory or file does not exist, Twizzy starts with an empty list and creates them on the first save. Existing data files remain compatible when snooze information is added.
+Twizzy saves after every successful add, mark, unmark, delete, or snooze command. On startup, it loads tasks from `data/twizzy.txt`. If the directory or file does not exist, Twizzy starts with an empty list and creates them on the first save. Existing data files remain compatible when snooze information is added. If the GUI cannot read a saved-data file, it shows an error and locks task-changing commands so the file cannot be overwritten accidentally.
 
 ## Invalid input
 
-Twizzy rejects incomplete commands, unknown commands, invalid task numbers, impossible dates, and snooze dates that are not in the future without changing the task list.
+Twizzy rejects incomplete commands, unknown commands, invalid task numbers, impossible dates, snooze dates that are not in the future, and duplicate pending tasks without changing the task list. You can add a completed task again if it becomes relevant in the future.
 
 ```text
 deadline time travel /by 2025-02-29
