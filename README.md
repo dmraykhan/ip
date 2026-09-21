@@ -10,6 +10,7 @@ Twizzy is a playful command-line task manager built for the NUS CS2103T individu
 - Lists everything in one numbered view
 - Marks tasks as done or brings them back
 - Deletes tasks that no longer deserve screen time
+- Snoozes tasks and returns them to the active list on demand
 - Saves automatically to `data/twizzy.txt`
 - Reloads tasks the next time it starts
 - Validates commands and calendar dates with useful error messages
@@ -55,6 +56,7 @@ ____________________________________________________________
 | Delete a task | `delete <number>` | `delete 1` |
 | Snooze a task | `snooze <number> /until <yyyy-MM-dd>` | `snooze 2 /until 2099-12-31` |
 | Show snoozed tasks | `list snoozed` | `list snoozed` |
+| Return a snoozed task | `unsnooze <number>` | `unsnooze 1` |
 | Exit | `bye` | `bye` |
 
 Dates use the unambiguous `yyyy-MM-dd` format. Twizzy displays them in a friendlier form such as `Sep 18 2026`.

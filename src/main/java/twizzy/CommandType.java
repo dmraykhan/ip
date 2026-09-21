@@ -9,6 +9,7 @@ public enum CommandType {
     EVENT("event", true),
     FIND("find", true),
     SNOOZE("snooze", true),
+    UNSNOOZE("unsnooze", true),
     HELP("help", false),
     LIST("list", false),
     MARK("mark", true),

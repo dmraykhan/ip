@@ -38,7 +38,7 @@ public class Parser {
         }
         throw new TwizzyException(
                 "I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, "
-                        + "delete, snooze, or bye.");
+                        + "delete, snooze, unsnooze, or bye.");
     }
 
     /** Parses the task number in a command that selects one task. */

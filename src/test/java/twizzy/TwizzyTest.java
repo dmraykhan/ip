@@ -56,4 +56,21 @@ class TwizzyTest {
         assertTrue(twizzy.getResponse("snooze 1 /until 2099-12-31")
                 .contains("There are no tasks to snooze"));
     }
+
+    @Test
+    void getResponse_unsnoozeReturnsTaskToActiveListAndSavesIt() {
+        Path dataFile = temporaryDirectory.resolve("twizzy.txt");
+        Twizzy twizzy = new Twizzy(new Storage(dataFile));
+        twizzy.initializeForGui();
+        twizzy.getResponse("todo revise notes");
+        twizzy.getResponse("snooze 1 /until 2099-12-31");
+
+        String response = twizzy.getResponse("unsnooze 1");
+        Twizzy reloadedTwizzy = new Twizzy(new Storage(dataFile));
+        reloadedTwizzy.initializeForGui();
+
+        assertTrue(response.startsWith("Unsnoozed, twin:"));
+        assertTrue(reloadedTwizzy.getResponse("list").contains("revise notes"));
+        assertTrue(reloadedTwizzy.getResponse("list snoozed").contains("No snoozed tasks"));
+    }
 }

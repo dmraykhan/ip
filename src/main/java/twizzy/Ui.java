@@ -61,7 +61,7 @@ public class Ui {
         System.out.println("  event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>");
         System.out.println("  list | list snoozed | find <keyword>");
         System.out.println("  mark <number> | unmark <number> | delete <number>");
-        System.out.println("  snooze <number> /until <yyyy-MM-dd>");
+        System.out.println("  snooze <number> /until <yyyy-MM-dd> | unsnooze <number>");
         System.out.println("  bye");
     }
 
@@ -119,6 +119,12 @@ public class Ui {
     public void showTaskSnoozed(Task task) {
         System.out.println("Snoozed, gang:");
         System.out.println("  " + task + formatSnoozeDate(task));
+    }
+
+    /** Displays confirmation that a snoozed task has returned to the active list. */
+    public void showTaskUnsnoozed(Task task) {
+        System.out.println("Unsnoozed, twin:");
+        System.out.println("  " + task);
     }
 
     /** Displays confirmation that a task was removed. */

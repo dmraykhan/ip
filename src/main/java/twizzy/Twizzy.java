@@ -97,6 +97,7 @@ public class Twizzy {
             case UNMARK -> formatStatusChange(command, commandType, false);
             case DELETE -> formatDeletion(command, commandType);
             case SNOOZE -> formatSnooze(command);
+            case UNSNOOZE -> formatUnsnooze(command);
             case TODO, DEADLINE, EVENT, UNKNOWN -> formatAddition(command, commandType);
             };
         } catch (TwizzyException | IOException exception) {
@@ -134,7 +135,7 @@ public class Twizzy {
     /** Returns whether a command would alter task data. */
     private boolean isTaskChangingCommand(CommandType commandType) {
         return switch (commandType) {
-        case TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, SNOOZE -> true;
+        case TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, SNOOZE, UNSNOOZE -> true;
         case BYE, HELP, LIST, FIND, UNKNOWN -> false;
         };
     }
@@ -170,7 +171,7 @@ public class Twizzy {
                 + "  event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>" + System.lineSeparator()
                 + "  list | list snoozed | find <keyword>" + System.lineSeparator()
                 + "  mark <number> | unmark <number> | delete <number>" + System.lineSeparator()
-                + "  snooze <number> /until <yyyy-MM-dd>" + System.lineSeparator()
+                + "  snooze <number> /until <yyyy-MM-dd> | unsnooze <number>" + System.lineSeparator()
                 + "  bye";
     }
 
@@ -244,6 +245,17 @@ public class Twizzy {
                 + "  " + task + " (snoozed until: " + details.until().format(DISPLAY_DATE_FORMAT) + ")";
     }
 
+    /** Returns a snoozed task to the active list using its snoozed-list number. */
+    private String formatUnsnooze(String command) throws TwizzyException, IOException {
+        LocalDate today = LocalDate.now();
+        List<Task> snoozedTasks = tasks.getSnoozedTasks(today);
+        int taskIndex = parser.parseTaskIndex(command, CommandType.UNSNOOZE, snoozedTasks.size());
+        Task task = snoozedTasks.get(taskIndex);
+        task.unsnooze();
+        storage.save(tasks.asList());
+        return "Unsnoozed, twin:" + System.lineSeparator() + "  " + task;
+    }
+
     private String formatTaskCount() {
         String taskWord = tasks.size() == 1 ? "task" : "tasks";
         return "You're juggling " + tasks.size() + " " + taskWord + " now, twin.";
@@ -276,6 +288,9 @@ public class Twizzy {
             break;
         case SNOOZE:
             snoozeTask(command);
+            break;
+        case UNSNOOZE:
+            unsnoozeTask(command);
             break;
         case TODO:
         case DEADLINE:
@@ -347,5 +362,16 @@ public class Twizzy {
         task.snoozeUntil(details.until());
         storage.save(tasks.asList());
         ui.showTaskSnoozed(task);
+    }
+
+    /** Returns a snoozed task to the active list using its snoozed-list number. */
+    private void unsnoozeTask(String command) throws TwizzyException, IOException {
+        LocalDate today = LocalDate.now();
+        List<Task> snoozedTasks = tasks.getSnoozedTasks(today);
+        int taskIndex = parser.parseTaskIndex(command, CommandType.UNSNOOZE, snoozedTasks.size());
+        Task task = snoozedTasks.get(taskIndex);
+        task.unsnooze();
+        storage.save(tasks.asList());
+        ui.showTaskUnsnoozed(task);
     }
 }

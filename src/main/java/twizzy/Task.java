@@ -77,6 +77,11 @@ public class Task {
         snoozedUntil = until;
     }
 
+    /** Makes this task immediately visible in the active task list again. */
+    public void unsnooze() {
+        snoozedUntil = null;
+    }
+
     /** Marks this task as completed. */
     public void markAsDone() {
         isDone = true;

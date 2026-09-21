@@ -5,13 +5,13 @@ Twizzy is your task-list twin: it remembers the boring stuff so you do not have 
 ## Command format
 
 - Type one command per line.
-- Task numbers come from the latest active `list` output.
+- Task numbers come from the latest `list` output, except `unsnooze`, which uses `list snoozed` numbers.
 - Dates must use `yyyy-MM-dd`, including leading zeroes.
 - Extra spaces around command details are ignored.
 
 ## Show command help
 
-Use `help` to display the supported commands and their required markers. This is the fastest way to check the syntax for deadlines, events, and snoozing while using the GUI.
+Use `help` to display the supported commands and their required markers. This is the fastest way to check the syntax for deadlines, events, snoozing, and unsnoozing while using the GUI.
 
 ## Add a todo
 
@@ -107,6 +107,19 @@ Snoozed, gang:
 
 Use `list snoozed` to inspect deferred tasks and their return dates.
 
+## Unsnooze a task
+
+Use `unsnooze <number>` to return a task immediately. The number comes from the latest `list snoozed` output, not the normal active `list`.
+
+```text
+unsnooze 1
+```
+
+```text
+Unsnoozed, twin:
+  [D][ ] submit report (by: Sep 18 2026)
+```
+
 ## Delete a task
 
 Use `delete <number>` to remove a task. Remaining tasks are renumbered automatically.
@@ -131,11 +144,11 @@ Catch you later, broski. Don't ghost your tasks.
 
 ## Saved data
 
-Twizzy saves after every successful add, mark, unmark, delete, or snooze command. On startup, it loads tasks from `data/twizzy.txt`. If the directory or file does not exist, Twizzy starts with an empty list and creates them on the first save. Existing data files remain compatible when snooze information is added. If the GUI cannot read a saved-data file, it shows an error and locks task-changing commands so the file cannot be overwritten accidentally.
+Twizzy saves after every successful add, mark, unmark, delete, snooze, or unsnooze command. On startup, it loads tasks from `data/twizzy.txt`. If the directory or file does not exist, Twizzy starts with an empty list and creates them on the first save. Existing data files remain compatible when snooze information is added. If the GUI cannot read a saved-data file, it shows an error and locks task-changing commands so the file cannot be overwritten accidentally.
 
 ## Invalid input
 
-Twizzy rejects incomplete commands, unknown commands, invalid task numbers, impossible dates, snooze dates that are not in the future, and duplicate pending tasks without changing the task list. You can add a completed task again if it becomes relevant in the future.
+Twizzy rejects incomplete commands, unknown commands, invalid task numbers, impossible dates, snooze dates that are not in the future, an `unsnooze` command when no tasks are snoozed, and duplicate pending tasks without changing the task list. You can add a completed task again if it becomes relevant in the future.
 
 ```text
 deadline time travel /by 2025-02-29

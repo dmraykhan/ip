@@ -231,7 +231,7 @@ You're juggling 1 task now, twin.
 Nah, you gotta lock in, gang. A todo needs a description. Try: todo <description>
 {{DIVIDER}}
 {{DIVIDER}}
-Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, unsnooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
@@ -581,22 +581,22 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, unsnooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, unsnooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, unsnooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, unsnooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, unsnooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, unsnooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
@@ -786,7 +786,7 @@ Commands:
   event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>
   list | list snoozed | find <keyword>
   mark <number> | unmark <number> | delete <number>
-  snooze <number> /until <yyyy-MM-dd>
+  snooze <number> /until <yyyy-MM-dd> | unsnooze <number>
   bye
 {{DIVIDER}}
 {{DIVIDER}}
@@ -890,6 +890,70 @@ You're juggling 2 tasks now, twin.
 Your active tasks, gang:
 1.[T][X] prepare slides
 2.[T][ ] PREPARE SLIDES
+{{DIVIDER}}
+{{DIVIDER}}
+Catch you later, broski. Don't ghost your tasks.
+{{DIVIDER}}
+```
+
+## TC17: Unsnooze a task
+
+**Aim:** Verify that `unsnooze` uses snoozed-task numbering, returns the selected task to the active list, persists the change, and rejects unavailable selections.
+
+**Inputs:**
+
+```text
+todo active task
+todo paused task
+snooze 2 /until 2099-12-31
+list snoozed
+unsnooze 1
+list
+list snoozed
+unsnooze 1
+unsnooze
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Locked in, gang. I added:
+  [T][ ] active task
+You're juggling 1 task now, twin.
+{{DIVIDER}}
+{{DIVIDER}}
+Locked in, gang. I added:
+  [T][ ] paused task
+You're juggling 2 tasks now, twin.
+{{DIVIDER}}
+{{DIVIDER}}
+Snoozed, gang:
+  [T][ ] paused task (snoozed until: Dec 31 2099)
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the snoozed tasks:
+1.[T][ ] paused task (snoozed until: Dec 31 2099)
+{{DIVIDER}}
+{{DIVIDER}}
+Unsnoozed, twin:
+  [T][ ] paused task
+{{DIVIDER}}
+{{DIVIDER}}
+Your active tasks, gang:
+1.[T][ ] active task
+2.[T][ ] paused task
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the snoozed tasks:
+{{DIVIDER}}
+{{DIVIDER}}
+Nah, you gotta lock in, gang. There are no tasks to unsnooze.
+{{DIVIDER}}
+{{DIVIDER}}
+Nah, you gotta lock in, gang. Please provide a task number. Try: unsnooze <number>
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
