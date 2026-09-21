@@ -60,7 +60,7 @@ You're juggling 3 tasks now, twin.
 Use `list` to see the current task numbers and statuses.
 
 ```text
-Here's the current chaos, gang:
+Your active tasks, gang:
 1.[T][ ] read chapter 3
 2.[D][ ] submit report (by: Sep 18 2026)
 3.[E][ ] hackathon (from: Sep 21 2026 to: Sep 22 2026)
@@ -76,10 +76,20 @@ Use `mark <number>` when a task is done:
 mark 2
 ```
 
+```text
+Marked done, twin:
+  [D][X] submit report (by: Sep 18 2026)
+```
+
 Use `unmark <number>` if the task returns for a sequel:
 
 ```text
 unmark 2
+```
+
+```text
+Marked pending, gang:
+  [D][ ] submit report (by: Sep 18 2026)
 ```
 
 ## Snooze a task
@@ -91,7 +101,7 @@ snooze 2 /until 2099-12-31
 ```
 
 ```text
-Snoozed, gang. Future you can handle this:
+Snoozed, gang:
   [D][ ] submit report (by: Sep 18 2026) (snoozed until: Dec 31 2099)
 ```
 
@@ -103,6 +113,12 @@ Use `delete <number>` to remove a task. Remaining tasks are renumbered automatic
 
 ```text
 delete 1
+```
+
+```text
+Deleted, broski:
+  [T][ ] read chapter 3
+You're juggling 2 tasks now, twin.
 ```
 
 ## Exit

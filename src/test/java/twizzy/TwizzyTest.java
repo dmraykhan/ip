@@ -30,4 +30,30 @@ class TwizzyTest {
         assertTrue(response.contains("changes are locked to protect it"));
         assertEquals(invalidData, Files.readString(dataFile));
     }
+
+    @Test
+    void getResponse_taskSummaryReflectsCompletedAndSnoozedTasks() {
+        Twizzy twizzy = new Twizzy(new Storage(temporaryDirectory.resolve("twizzy.txt")));
+        twizzy.initializeForGui();
+
+        assertEquals("Tasks: 0 total · 0 done · 0 snoozed", twizzy.getTaskSummary());
+        twizzy.getResponse("todo revise notes");
+        twizzy.getResponse("mark 1");
+        twizzy.getResponse("snooze 1 /until 2099-12-31");
+
+        assertEquals("Tasks: 1 total · 1 done · 1 snoozed", twizzy.getTaskSummary());
+    }
+
+    @Test
+    void getResponse_emptyFindAndRepeatedSnoozeExplainWhatWentWrong() {
+        Twizzy twizzy = new Twizzy(new Storage(temporaryDirectory.resolve("twizzy.txt")));
+        twizzy.initializeForGui();
+
+        assertTrue(twizzy.getResponse("find missing").contains("No tasks matched that"));
+        twizzy.getResponse("todo revise notes");
+        twizzy.getResponse("snooze 1 /until 2099-12-31");
+
+        assertTrue(twizzy.getResponse("snooze 1 /until 2099-12-31")
+                .contains("There are no tasks to snooze"));
+    }
 }

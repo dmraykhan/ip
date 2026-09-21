@@ -2,6 +2,7 @@ package twizzy.gui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +19,9 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private TextField userInput;
+
+    @FXML
+    private Label taskSummary;
 
     private Twizzy twizzy;
 
@@ -36,8 +40,9 @@ public class MainWindow extends AnchorPane {
     public void setTwizzy(Twizzy twizzy) {
         this.twizzy = twizzy;
         twizzy.initializeForGui();
-        dialogContainer.getChildren().add(DialogBox.bot("Wsg, gang? Yo, I'm Twizzy — your task-list twin, broski.\n"
+        dialogContainer.getChildren().add(DialogBox.bot("Wsg, I'm Twizzy — your task-list twin.\n"
                 + "Type help to see what I can do."));
+        updateTaskSummary();
         if (twizzy.getGuiStartupError() != null) {
             dialogContainer.getChildren().add(DialogBox.error(twizzy.getGuiStartupError()));
         }
@@ -55,6 +60,7 @@ public class MainWindow extends AnchorPane {
         String response = twizzy.getResponse(command);
         dialogContainer.getChildren().add(isErrorResponse(response)
                 ? DialogBox.error(response) : DialogBox.bot(response));
+        updateTaskSummary();
         userInput.clear();
 
         if (command.equals("bye")) {
@@ -65,5 +71,10 @@ public class MainWindow extends AnchorPane {
     /** Returns whether a response represents a rejected command. */
     private boolean isErrorResponse(String response) {
         return response.startsWith("Nah, you gotta lock in, gang.");
+    }
+
+    /** Refreshes the persistent task-status summary after each submitted command. */
+    private void updateTaskSummary() {
+        taskSummary.setText(twizzy.getTaskSummary());
     }
 }

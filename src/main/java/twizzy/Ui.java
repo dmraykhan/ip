@@ -28,8 +28,8 @@ public class Ui {
     public void showWelcome() {
         System.out.println(DIVIDER);
         System.out.println(BANNER);
-        System.out.println("Wsg, gang? Yo, I'm Twizzy — your task-list twin, broski.");
-        System.out.println("Drop a command. I'll keep the chaos organized.");
+        System.out.println("Wsg, I'm Twizzy — your task-list twin.");
+        System.out.println("Type help to see what I can do.");
         System.out.println(DIVIDER);
     }
 
@@ -50,7 +50,7 @@ public class Ui {
 
     /** Displays Twizzy's farewell message. */
     public void showGoodbye() {
-        System.out.println("I'm out. Your tasks aren't — don't ghost them.");
+        System.out.println("Catch you later, broski. Don't ghost your tasks.");
     }
 
     /** Displays a compact reference for all supported commands. */
@@ -67,12 +67,12 @@ public class Ui {
 
     /** Displays a user-facing error. */
     public void showError(String message) {
-        System.out.println("Yeah, no. " + message);
+        System.out.println("Nah, you gotta lock in, gang. " + message);
     }
 
     /** Displays all tasks in their current order. */
     public void showTaskList(TaskList tasks, LocalDate date) {
-        System.out.println("Here's the current chaos:");
+        System.out.println("Your active tasks, gang:");
         List<Task> activeTasks = tasks.getActiveTasks(date);
         for (int i = 0; i < activeTasks.size(); i++) {
             System.out.println((i + 1) + "." + activeTasks.get(i));
@@ -98,32 +98,32 @@ public class Ui {
 
     /** Displays confirmation that a task was added. */
     public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Locked in. I added:");
+        System.out.println("Locked in, gang. I added:");
         System.out.println("  " + task);
         showTaskCount(taskCount);
     }
 
     /** Displays confirmation that a task was marked as completed. */
     public void showTaskMarked(Task task) {
-        System.out.println("Huge. One less thing haunting you:");
+        System.out.println("Marked done, twin:");
         System.out.println("  " + task);
     }
 
     /** Displays confirmation that a task was marked as incomplete. */
     public void showTaskUnmarked(Task task) {
-        System.out.println("Plot twist. This one's back:");
+        System.out.println("Marked pending, gang:");
         System.out.println("  " + task);
     }
 
     /** Displays confirmation that a task has been deferred. */
     public void showTaskSnoozed(Task task) {
-        System.out.println("Snoozed. Future you can handle this:");
+        System.out.println("Snoozed, gang:");
         System.out.println("  " + task + formatSnoozeDate(task));
     }
 
     /** Displays confirmation that a task was removed. */
     public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("Gone. We never knew this task:");
+        System.out.println("Deleted, broski:");
         System.out.println("  " + task);
         showTaskCount(taskCount);
     }
@@ -135,7 +135,7 @@ public class Ui {
 
     private void showTaskCount(int taskCount) {
         String taskWord = taskCount == 1 ? "task" : "tasks";
-        System.out.println("You're juggling " + taskCount + " " + taskWord + " now.");
+        System.out.println("You're juggling " + taskCount + " " + taskWord + " now, twin.");
     }
 
     private String formatSnoozeDate(Task task) {

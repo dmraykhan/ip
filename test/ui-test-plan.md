@@ -21,7 +21,7 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -46,19 +46,19 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] read book
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [D][ ] return BOOK (by: Sep 20 2026)
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [E][ ] club meeting (from: Sep 21 2026 to: Sep 22 2026)
-You're juggling 3 tasks now.
+You're juggling 3 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the matching tasks in your list:
@@ -66,13 +66,13 @@ Here are the matching tasks in your list:
 2.[D][ ] return BOOK (by: Sep 20 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Please provide a keyword. Try: find <keyword>
+Nah, you gotta lock in, gang. Please provide a keyword. Try: find <keyword>
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the matching tasks in your list:
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -94,22 +94,22 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] read book
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] return book
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] read book
 2.[T][ ] return book
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -134,35 +134,35 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] read book
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] return book
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Huge. One less thing haunting you:
+Marked done, twin:
   [T][X] return book
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] read book
 2.[T][X] return book
 {{DIVIDER}}
 {{DIVIDER}}
-Plot twist. This one's back:
+Marked pending, gang:
   [T][ ] return book
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] read book
 2.[T][ ] return book
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -184,22 +184,22 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [D][ ] do homework (by: Sep 18 2026)
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[D][ ] do homework (by: Sep 18 2026)
 2.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -223,28 +223,28 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] first task
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. A todo needs a description. Try: todo <description>
+Nah, you gotta lock in, gang. A todo needs a description. Try: todo <description>
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] second task
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] first task
 2.[T][ ] second task
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -280,64 +280,64 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Yeah, no. A deadline needs /by followed by a date.
+Nah, you gotta lock in, gang. A deadline needs /by followed by a date.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. A deadline needs a description. Try: deadline <description> /by <date>
+Nah, you gotta lock in, gang. A deadline needs a description. Try: deadline <description> /by <date>
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The deadline date cannot be empty after /by.
+Nah, you gotta lock in, gang. The deadline date cannot be empty after /by.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. A deadline needs /by followed by a date.
+Nah, you gotta lock in, gang. A deadline needs /by followed by a date.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. An event needs /from followed by a start date.
+Nah, you gotta lock in, gang. An event needs /from followed by a start date.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. An event needs a description. Try: event <description> /from <start-date> /to <end-date>
+Nah, you gotta lock in, gang. An event needs a description. Try: event <description> /from <start-date> /to <end-date>
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. An event needs /to followed by an end date.
+Nah, you gotta lock in, gang. An event needs /to followed by an end date.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The event start date cannot be empty after /from.
+Nah, you gotta lock in, gang. The event start date cannot be empty after /from.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The event end date cannot be empty after /to.
+Nah, you gotta lock in, gang. The event end date cannot be empty after /to.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. An event needs /from followed by a start date.
+Nah, you gotta lock in, gang. An event needs /from followed by a start date.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. An event needs /to followed by an end date.
+Nah, you gotta lock in, gang. An event needs /to followed by an end date.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The deadline date must be a valid date in yyyy-MM-dd format.
+Nah, you gotta lock in, gang. The deadline date must be a valid date in yyyy-MM-dd format.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The event start date must be a valid date in yyyy-MM-dd format.
+Nah, you gotta lock in, gang. The event start date must be a valid date in yyyy-MM-dd format.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The event end date must be a valid date in yyyy-MM-dd format.
+Nah, you gotta lock in, gang. The event end date must be a valid date in yyyy-MM-dd format.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [D][ ] report (by: Feb 29 2024)
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [E][ ] meeting (from: Sep 21 2026 to: Sep 22 2026)
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[D][ ] report (by: Feb 29 2024)
 2.[E][ ] meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -368,47 +368,47 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Yeah, no. Please enter a command.
+Nah, you gotta lock in, gang. Please enter a command.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Please provide a task number. Try: mark <number>
+Nah, you gotta lock in, gang. Please provide a task number. Try: mark <number>
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. There are no tasks to unmark.
+Nah, you gotta lock in, gang. There are no tasks to unmark.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] stable task
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The task number must be a whole number.
+Nah, you gotta lock in, gang. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Choose a task number from 1 to 1.
+Nah, you gotta lock in, gang. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Choose a task number from 1 to 1.
+Nah, you gotta lock in, gang. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Please provide a task number. Try: unmark <number>
+Nah, you gotta lock in, gang. Please provide a task number. Try: unmark <number>
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The task number must be a whole number.
+Nah, you gotta lock in, gang. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Choose a task number from 1 to 1.
+Nah, you gotta lock in, gang. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-Huge. One less thing haunting you:
+Marked done, twin:
   [T][X] stable task
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][X] stable task
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -437,56 +437,56 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] read book
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [D][ ] return book (by: Sep 20 2026)
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
-You're juggling 3 tasks now.
+You're juggling 3 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] join club
-You're juggling 4 tasks now.
+You're juggling 4 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Huge. One less thing haunting you:
+Marked done, twin:
   [D][X] return book (by: Sep 20 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Gone. We never knew this task:
+Deleted, broski:
   [D][X] return book (by: Sep 20 2026)
-You're juggling 3 tasks now.
+You're juggling 3 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] read book
 2.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 3.[T][ ] join club
 {{DIVIDER}}
 {{DIVIDER}}
-Gone. We never knew this task:
+Deleted, broski:
   [T][ ] read book
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Gone. We never knew this task:
+Deleted, broski:
   [T][ ] join club
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -516,45 +516,45 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Yeah, no. Please provide a task number. Try: delete <number>
+Nah, you gotta lock in, gang. Please provide a task number. Try: delete <number>
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. There are no tasks to delete.
+Nah, you gotta lock in, gang. There are no tasks to delete.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] safe task
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The task number must be a whole number.
+Nah, you gotta lock in, gang. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Choose a task number from 1 to 1.
+Nah, you gotta lock in, gang. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Choose a task number from 1 to 1.
+Nah, you gotta lock in, gang. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The task number must be a whole number.
+Nah, you gotta lock in, gang. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] safe task
 {{DIVIDER}}
 {{DIVIDER}}
-Gone. We never knew this task:
+Deleted, broski:
   [T][ ] safe task
-You're juggling 0 tasks now.
+You're juggling 0 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. There are no tasks to delete.
+Nah, you gotta lock in, gang. There are no tasks to delete.
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -581,34 +581,34 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
+Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] valid task
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] valid task
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -639,54 +639,54 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] read A | B
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [D][ ] submit work (by: Sep 18 2026)
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
-You're juggling 3 tasks now.
+You're juggling 3 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Huge. One less thing haunting you:
+Marked done, twin:
   [D][X] submit work (by: Sep 18 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 {{STARTUP}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] read A | B
 2.[D][X] submit work (by: Sep 18 2026)
 3.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-Gone. We never knew this task:
+Deleted, broski:
   [T][ ] read A | B
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Plot twist. This one's back:
+Marked pending, gang:
   [D][ ] submit work (by: Sep 18 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 {{STARTUP}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[D][ ] submit work (by: Sep 18 2026)
 2.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -717,21 +717,21 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] active task
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] postponed task
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Snoozed. Future you can handle this:
+Snoozed, gang:
   [T][ ] postponed task (snoozed until: Dec 31 2099)
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] active task
 {{DIVIDER}}
 {{DIVIDER}}
@@ -742,17 +742,17 @@ Here are the snoozed tasks:
 Here are the matching tasks in your list:
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. Choose a task number from 1 to 1.
+Nah, you gotta lock in, gang. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The snooze date cannot be empty after /until.
+Nah, you gotta lock in, gang. The snooze date cannot be empty after /until.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. The snooze date must be after today.
+Nah, you gotta lock in, gang. The snooze date must be after today.
 {{DIVIDER}}
 {{STARTUP}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] active task
 {{DIVIDER}}
 {{DIVIDER}}
@@ -760,7 +760,7 @@ Here are the snoozed tasks:
 1.[T][ ] postponed task (snoozed until: Dec 31 2099)
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -790,7 +790,7 @@ Commands:
   bye
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -817,36 +817,36 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] prepare slides
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Huge. One less thing haunting you:
+Marked done, twin:
   [T][X] prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. That task is already marked as done.
+Nah, you gotta lock in, gang. That task is already marked as done.
 {{DIVIDER}}
 {{DIVIDER}}
-Plot twist. This one's back:
+Marked pending, gang:
   [T][ ] prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. That task is already marked as not done.
+Nah, you gotta lock in, gang. That task is already marked as not done.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. An event must end after it starts.
+Nah, you gotta lock in, gang. An event must end after it starts.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. An event must end after it starts.
+Nah, you gotta lock in, gang. An event must end after it starts.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][ ] prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```
 
@@ -870,28 +870,28 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] prepare slides
-You're juggling 1 task now.
+You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. That task is already on your list, gang. Try editing the existing one.
+Nah, you gotta lock in, gang. That task is already on your list, gang. Try editing the existing one.
 {{DIVIDER}}
 {{DIVIDER}}
-Huge. One less thing haunting you:
+Marked done, twin:
   [T][X] prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
-Locked in. I added:
+Locked in, gang. I added:
   [T][ ] PREPARE SLIDES
-You're juggling 2 tasks now.
+You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][X] prepare slides
 2.[T][ ] PREPARE SLIDES
 {{DIVIDER}}
 {{DIVIDER}}
-I'm out. Your tasks aren't — don't ghost them.
+Catch you later, broski. Don't ghost your tasks.
 {{DIVIDER}}
 ```

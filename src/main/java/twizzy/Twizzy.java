@@ -89,10 +89,10 @@ public class Twizzy {
             case HELP -> helpText();
             case LIST -> command.equals("list snoozed")
                     ? formatSnoozedTaskList(tasks.getSnoozedTasks(LocalDate.now()))
-                    : formatTaskList(tasks.getActiveTasks(LocalDate.now()), "Here's the current chaos, gang:",
+                    : formatTaskList(tasks.getActiveTasks(LocalDate.now()), "Your active tasks, gang:",
                     "No active tasks yet, twin. Add one with todo <description>.");
             case FIND -> formatTaskList(tasks.findActiveTasks(parser.parseFindKeyword(command), LocalDate.now()),
-                    "I found these for you, twin:", "No tasks matched that, twin. Try another keyword.");
+                    "Matching tasks:", "No tasks matched that, twin. Try another keyword.");
             case MARK -> formatStatusChange(command, commandType, true);
             case UNMARK -> formatStatusChange(command, commandType, false);
             case DELETE -> formatDeletion(command, commandType);
@@ -121,6 +121,14 @@ public class Twizzy {
     /** Returns the data-loading problem to display in the GUI, if one occurred. */
     public String getGuiStartupError() {
         return guiStartupError;
+    }
+
+    /** Returns a compact summary of all tasks for display in the graphical interface. */
+    public String getTaskSummary() {
+        LocalDate today = LocalDate.now();
+        int completedTasks = (int) tasks.asList().stream().filter(Task::isDone).count();
+        int snoozedTasks = tasks.getSnoozedTasks(today).size();
+        return "Tasks: " + tasks.size() + " total · " + completedTasks + " done · " + snoozedTasks + " snoozed";
     }
 
     /** Returns whether a command would alter task data. */
@@ -211,8 +219,7 @@ public class Twizzy {
             task.markAsNotDone();
         }
         storage.save(tasks.asList());
-        String message = isDone ? "Big W, twin. One less thing haunting you:"
-                : "Plot twist, gang. This one's back:";
+        String message = isDone ? "Marked done, twin:" : "Marked pending, gang:";
         return message + System.lineSeparator() + "  " + task;
     }
 
@@ -222,7 +229,7 @@ public class Twizzy {
         int taskIndex = parser.parseTaskIndex(command, commandType, tasks.getActiveTasks(today).size());
         Task removedTask = tasks.removeActive(taskIndex, today);
         storage.save(tasks.asList());
-        return "Aight, broski. This task is gone:" + System.lineSeparator()
+        return "Deleted, broski:" + System.lineSeparator()
                 + "  " + removedTask + System.lineSeparator()
                 + formatTaskCount();
     }
@@ -233,7 +240,7 @@ public class Twizzy {
         Task task = tasks.getActive(details.taskIndex(), today);
         task.snoozeUntil(details.until());
         storage.save(tasks.asList());
-        return "Snoozed, gang. Future you can handle this:" + System.lineSeparator()
+        return "Snoozed, gang:" + System.lineSeparator()
                 + "  " + task + " (snoozed until: " + details.until().format(DISPLAY_DATE_FORMAT) + ")";
     }
 

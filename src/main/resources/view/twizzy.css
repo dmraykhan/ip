@@ -12,6 +12,12 @@
     -fx-background-color: transparent;
 }
 
+.task-summary {
+    -fx-text-fill: #475569;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
 .dialog-box {
     -fx-fill-width: true;
 }
