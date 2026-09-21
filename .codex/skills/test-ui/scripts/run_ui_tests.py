@@ -117,7 +117,10 @@ def main() -> int:
         print(f"Java 25 is required; found: {version_text or 'javac unavailable'}", file=sys.stderr)
         return 2
 
-    sources = sorted(Path("src/main/java").rglob("*.java"))
+    sources = sorted(
+        source for source in Path("src/main/java").rglob("*.java")
+        if "gui" not in source.relative_to("src/main/java").parts
+    )
     if not sources:
         print("No Java source files found in src/main/java", file=sys.stderr)
         return 2
