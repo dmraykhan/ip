@@ -36,8 +36,11 @@ public class MainWindow extends AnchorPane {
     public void setTwizzy(Twizzy twizzy) {
         this.twizzy = twizzy;
         twizzy.initializeForGui();
-        dialogContainer.getChildren().add(DialogBox.bot("Yo, I'm Twizzy — your task-list twin.\n"
+        dialogContainer.getChildren().add(DialogBox.bot("Wsg, gang? Yo, I'm Twizzy — your task-list twin, broski.\n"
                 + "Type help to see what I can do."));
+        if (twizzy.getGuiStartupError() != null) {
+            dialogContainer.getChildren().add(DialogBox.error(twizzy.getGuiStartupError()));
+        }
     }
 
     /** Processes text submitted with Enter or the Send button. */
@@ -61,6 +64,6 @@ public class MainWindow extends AnchorPane {
 
     /** Returns whether a response represents a rejected command. */
     private boolean isErrorResponse(String response) {
-        return response.startsWith("Yeah, no.");
+        return response.startsWith("Nah, you gotta lock in, gang.");
     }
 }

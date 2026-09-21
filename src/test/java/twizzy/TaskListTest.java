@@ -33,4 +33,17 @@ class TaskListTest {
         assertEquals(List.of(snoozedTask), tasks.getSnoozedTasks(LocalDate.of(2099, 12, 30)));
         assertEquals(List.of(activeTask, snoozedTask), tasks.getActiveTasks(LocalDate.of(2099, 12, 31)));
     }
+
+    @Test
+    void containsDuplicate_sameTaskDetailsIgnoringCase_returnsTrue() {
+        Todo completedTask = new Todo("completed task");
+        completedTask.markAsDone();
+        TaskList tasks = new TaskList(List.of(new Todo("Prepare Slides"),
+                new Deadline("submit report", LocalDate.of(2026, 9, 30)), completedTask));
+
+        assertEquals(true, tasks.containsDuplicate(new Todo("prepare slides")));
+        assertEquals(true, tasks.containsDuplicate(new Deadline("SUBMIT REPORT", LocalDate.of(2026, 9, 30))));
+        assertEquals(false, tasks.containsDuplicate(new Deadline("submit report", LocalDate.of(2026, 10, 1))));
+        assertEquals(false, tasks.containsDuplicate(new Todo("completed task")));
+    }
 }

@@ -22,10 +22,23 @@ public class Twizzy {
 
     private TaskList tasks;
 
+    private String guiStartupError;
+
+    private boolean isGuiStorageReadOnly;
+
     /** Creates a Twizzy application using its default local data file. */
     public Twizzy() {
+        this(new Storage(DATA_FILE_PATH));
+    }
+
+    /**
+     * Creates a Twizzy application using the supplied storage implementation.
+     *
+     * @param storage storage used to persist tasks
+     */
+    Twizzy(Storage storage) {
         parser = new Parser();
-        storage = new Storage(DATA_FILE_PATH);
+        this.storage = storage;
         ui = new Ui();
     }
 
@@ -66,15 +79,20 @@ public class Twizzy {
      */
     public String getResponse(String command) {
         CommandType commandType = CommandType.from(command);
+        if (isGuiStorageReadOnly && isTaskChangingCommand(commandType)) {
+            return "Nah, you gotta lock in, gang. Saved task data could not be read, so changes are locked "
+                    + "to protect it. Fix or remove data/twizzy.txt, then restart Twizzy.";
+        }
         try {
             return switch (commandType) {
-            case BYE -> "I'm out. Your tasks aren't — don't ghost them.";
+            case BYE -> "Catch you later, broski. Don't ghost your tasks.";
             case HELP -> helpText();
             case LIST -> command.equals("list snoozed")
                     ? formatSnoozedTaskList(tasks.getSnoozedTasks(LocalDate.now()))
-                    : formatTaskList(tasks.getActiveTasks(LocalDate.now()), "Here's the current chaos:");
+                    : formatTaskList(tasks.getActiveTasks(LocalDate.now()), "Here's the current chaos, gang:",
+                    "No active tasks yet, twin. Add one with todo <description>.");
             case FIND -> formatTaskList(tasks.findActiveTasks(parser.parseFindKeyword(command), LocalDate.now()),
-                    "Here are the matching tasks in your list:");
+                    "I found these for you, twin:", "No tasks matched that, twin. Try another keyword.");
             case MARK -> formatStatusChange(command, commandType, true);
             case UNMARK -> formatStatusChange(command, commandType, false);
             case DELETE -> formatDeletion(command, commandType);
@@ -82,7 +100,7 @@ public class Twizzy {
             case TODO, DEADLINE, EVENT, UNKNOWN -> formatAddition(command, commandType);
             };
         } catch (TwizzyException | IOException exception) {
-            return "Yeah, no. " + exception.getMessage();
+            return "Nah, you gotta lock in, gang. " + exception.getMessage();
         }
     }
 
@@ -90,9 +108,27 @@ public class Twizzy {
     public void initializeForGui() {
         try {
             tasks = new TaskList(storage.load());
+            guiStartupError = null;
+            isGuiStorageReadOnly = false;
         } catch (IOException exception) {
             tasks = new TaskList(List.of());
+            guiStartupError = "Nah, you gotta lock in, gang. I couldn't read saved tasks: "
+                    + exception.getMessage();
+            isGuiStorageReadOnly = true;
         }
+    }
+
+    /** Returns the data-loading problem to display in the GUI, if one occurred. */
+    public String getGuiStartupError() {
+        return guiStartupError;
+    }
+
+    /** Returns whether a command would alter task data. */
+    private boolean isTaskChangingCommand(CommandType commandType) {
+        return switch (commandType) {
+        case TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, SNOOZE -> true;
+        case BYE, HELP, LIST, FIND, UNKNOWN -> false;
+        };
     }
 
     private void loadTasks() {
@@ -105,8 +141,11 @@ public class Twizzy {
         }
     }
 
-    private String formatTaskList(List<Task> displayedTasks, String heading) {
+    private String formatTaskList(List<Task> displayedTasks, String heading, String emptyMessage) {
         StringBuilder response = new StringBuilder(heading);
+        if (displayedTasks.isEmpty()) {
+            return response.append(System.lineSeparator()).append(emptyMessage).toString();
+        }
         for (int i = 0; i < displayedTasks.size(); i++) {
             response.append(System.lineSeparator())
                     .append(i + 1)
@@ -117,7 +156,7 @@ public class Twizzy {
     }
 
     private String helpText() {
-        return "Commands:" + System.lineSeparator()
+        return "Commands, gang:" + System.lineSeparator()
                 + "  todo <description>" + System.lineSeparator()
                 + "  deadline <description> /by <yyyy-MM-dd>" + System.lineSeparator()
                 + "  event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>" + System.lineSeparator()
@@ -129,6 +168,10 @@ public class Twizzy {
 
     private String formatSnoozedTaskList(List<Task> snoozedTasks) {
         StringBuilder response = new StringBuilder("Here are the snoozed tasks:");
+        if (snoozedTasks.isEmpty()) {
+            return response.append(System.lineSeparator())
+                    .append("No snoozed tasks right now, gang.").toString();
+        }
         for (int i = 0; i < snoozedTasks.size(); i++) {
             Task task = snoozedTasks.get(i);
             response.append(System.lineSeparator())
@@ -145,9 +188,10 @@ public class Twizzy {
     private String formatAddition(String command, CommandType commandType)
             throws TwizzyException, IOException {
         Task task = parser.parseTask(command, commandType);
+        rejectDuplicate(task);
         tasks.add(task);
         storage.save(tasks.asList());
-        return "Locked in. I added:" + System.lineSeparator()
+        return "Locked in, gang. I added:" + System.lineSeparator()
                 + "  " + task + System.lineSeparator()
                 + formatTaskCount();
     }
@@ -167,7 +211,8 @@ public class Twizzy {
             task.markAsNotDone();
         }
         storage.save(tasks.asList());
-        String message = isDone ? "Huge. One less thing haunting you:" : "Plot twist. This one's back:";
+        String message = isDone ? "Big W, twin. One less thing haunting you:"
+                : "Plot twist, gang. This one's back:";
         return message + System.lineSeparator() + "  " + task;
     }
 
@@ -177,7 +222,7 @@ public class Twizzy {
         int taskIndex = parser.parseTaskIndex(command, commandType, tasks.getActiveTasks(today).size());
         Task removedTask = tasks.removeActive(taskIndex, today);
         storage.save(tasks.asList());
-        return "Gone. We never knew this task:" + System.lineSeparator()
+        return "Aight, broski. This task is gone:" + System.lineSeparator()
                 + "  " + removedTask + System.lineSeparator()
                 + formatTaskCount();
     }
@@ -188,13 +233,13 @@ public class Twizzy {
         Task task = tasks.getActive(details.taskIndex(), today);
         task.snoozeUntil(details.until());
         storage.save(tasks.asList());
-        return "Snoozed. Future you can handle this:" + System.lineSeparator()
+        return "Snoozed, gang. Future you can handle this:" + System.lineSeparator()
                 + "  " + task + " (snoozed until: " + details.until().format(DISPLAY_DATE_FORMAT) + ")";
     }
 
     private String formatTaskCount() {
         String taskWord = tasks.size() == 1 ? "task" : "tasks";
-        return "You're juggling " + tasks.size() + " " + taskWord + " now.";
+        return "You're juggling " + tasks.size() + " " + taskWord + " now, twin.";
     }
 
     private void execute(String command, CommandType commandType)
@@ -244,9 +289,17 @@ public class Twizzy {
     private void addTask(String command, CommandType commandType)
             throws TwizzyException, IOException {
         Task task = parser.parseTask(command, commandType);
+        rejectDuplicate(task);
         tasks.add(task);
         storage.save(tasks.asList());
         ui.showTaskAdded(task, tasks.size());
+    }
+
+    /** Rejects a task that would repeat an existing task's user-visible details. */
+    private void rejectDuplicate(Task task) throws TwizzyException {
+        if (tasks.containsDuplicate(task)) {
+            throw new TwizzyException("That task is already on your list, gang. Try editing the existing one.");
+        }
     }
 
     private void changeTaskStatus(String command, CommandType commandType, boolean isDone)

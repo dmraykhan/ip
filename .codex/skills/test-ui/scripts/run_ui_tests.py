@@ -21,7 +21,7 @@ BANNER = r""" _______        _
    |_| \_/\_/ |_/___/___| \__, |      
                            __/ |      
                           |___/"""
-STARTUP = (f"{DIVIDER}\n{BANNER}\nYo, I'm Twizzy — your task-list twin.\n"
+STARTUP = (f"{DIVIDER}\n{BANNER}\nWsg, gang? Yo, I'm Twizzy — your task-list twin, broski.\n"
            f"Drop a command. I'll keep the chaos organized.\n{DIVIDER}")
 
 

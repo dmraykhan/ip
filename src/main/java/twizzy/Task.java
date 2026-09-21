@@ -88,6 +88,28 @@ public class Task {
     }
 
     /**
+     * Reports whether another task has the same user-visible task details.
+     * Completion and snooze state are ignored.
+     *
+     * @param other task to compare
+     * @return true when both tasks would be accidental duplicates
+     */
+    public boolean hasSameDetailsAs(Task other) {
+        if (!getClass().equals(other.getClass())
+                || !description.equalsIgnoreCase(other.description)) {
+            return false;
+        }
+        if (this instanceof Deadline deadline && other instanceof Deadline otherDeadline) {
+            return deadline.getBy().equals(otherDeadline.getBy());
+        }
+        if (this instanceof Event event && other instanceof Event otherEvent) {
+            return event.getFrom().equals(otherEvent.getFrom())
+                    && event.getTo().equals(otherEvent.getTo());
+        }
+        return true;
+    }
+
+    /**
      * Formats this task with its status icon and description.
      *
      * @return display form of this task
