@@ -2,6 +2,10 @@
 
 Twizzy is your task-list twin: it remembers the boring stuff so you do not have to keep it all in your head.
 
+## Interface
+
+![Twizzy GUI](Ui.png)
+
 ## Command format
 
 - Type one command per line.
