@@ -36,8 +36,8 @@ ____________________________________________________________
    |_| \_/\_/ |_/___/___| \__, |
                            __/ |
                           |___/
-Wsg, gang? Yo, I'm Twizzy — your task-list twin, broski.
-Drop a command. I'll keep the chaos organized.
+Wsg, I'm Twizzy — your task-list twin.
+Type help to see what I can do.
 ____________________________________________________________
 ```
 
@@ -69,7 +69,7 @@ list
 ```
 
 ```text
-Here's the current chaos:
+Your active tasks, gang:
 1.[T][X] survive Monday
 2.[D][ ] submit report (by: Sep 18 2026)
 ```
