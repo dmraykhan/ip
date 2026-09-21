@@ -10,13 +10,19 @@ public class Parser {
     private static final DateTimeFormatter INPUT_DATE_FORMAT =
             DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 
+    private static final String BY_MARKER = "/by";
+
+    private static final String FROM_MARKER = "/from";
+
+    private static final String TO_MARKER = "/to";
+
     /** Creates a task from a complete add-task command. */
     public Task parseTask(String command, CommandType commandType) throws TwizzyException {
         if (command.trim().isEmpty()) {
             throw new TwizzyException("Please enter a command.");
         }
         if (commandType == CommandType.TODO) {
-            String description = command.substring(4).trim();
+            String description = command.substring(CommandType.TODO.getKeyword().length()).trim();
             if (description.isEmpty()) {
                 throw new TwizzyException("A todo needs a description. Try: todo <description>");
             }
@@ -67,13 +73,13 @@ public class Parser {
     }
 
     private Task parseDeadline(String command) throws TwizzyException {
-        String details = command.substring(8).trim();
-        int byIndex = findCommandMarker(details, "/by", 0);
+        String details = command.substring(CommandType.DEADLINE.getKeyword().length()).trim();
+        int byIndex = findCommandMarker(details, BY_MARKER, 0);
         if (byIndex < 0) {
             throw new TwizzyException("A deadline needs /by followed by a date.");
         }
         String description = details.substring(0, byIndex).trim();
-        String by = details.substring(byIndex + 3).trim();
+        String by = details.substring(byIndex + BY_MARKER.length()).trim();
         if (description.isEmpty()) {
             throw new TwizzyException(
                     "A deadline needs a description. Try: deadline <description> /by <date>");
@@ -85,9 +91,10 @@ public class Parser {
     }
 
     private Task parseEvent(String command) throws TwizzyException {
-        String details = command.substring(5).trim();
-        int fromIndex = findCommandMarker(details, "/from", 0);
-        int toIndex = fromIndex < 0 ? -1 : findCommandMarker(details, "/to", fromIndex + 5);
+        String details = command.substring(CommandType.EVENT.getKeyword().length()).trim();
+        int fromIndex = findCommandMarker(details, FROM_MARKER, 0);
+        int toIndex = fromIndex < 0 ? -1
+                : findCommandMarker(details, TO_MARKER, fromIndex + FROM_MARKER.length());
         if (fromIndex < 0) {
             throw new TwizzyException("An event needs /from followed by a start date.");
         }
@@ -95,8 +102,8 @@ public class Parser {
             throw new TwizzyException("An event needs /to followed by an end date.");
         }
         String description = details.substring(0, fromIndex).trim();
-        String from = details.substring(fromIndex + 5, toIndex).trim();
-        String to = details.substring(toIndex + 3).trim();
+        String from = details.substring(fromIndex + FROM_MARKER.length(), toIndex).trim();
+        String to = details.substring(toIndex + TO_MARKER.length()).trim();
         if (description.isEmpty()) {
             throw new TwizzyException(
                     "An event needs a description. Try: event <description> /from <start-date> /to <end-date>");
