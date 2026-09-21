@@ -24,7 +24,8 @@ public class MainWindow extends AnchorPane {
     /** Configures scrolling after FXML fields have been injected. */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.heightProperty().addListener((observable, oldHeight, newHeight) ->
+                scrollPane.setVvalue(1.0));
     }
 
     /**
@@ -36,7 +37,7 @@ public class MainWindow extends AnchorPane {
         this.twizzy = twizzy;
         twizzy.initializeForGui();
         dialogContainer.getChildren().add(DialogBox.bot("Yo, I'm Twizzy — your task-list twin.\n"
-                + "Drop a command. I'll keep the chaos organized."));
+                + "Type help to see what I can do."));
     }
 
     /** Processes text submitted with Enter or the Send button. */

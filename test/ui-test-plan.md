@@ -761,3 +761,33 @@ Here are the snoozed tasks:
 I'm out. Your tasks aren't — don't ghost them.
 {{DIVIDER}}
 ```
+
+## TC14: Show command help
+
+**Aim:** Verify that a new user can display the supported command syntax from the application.
+
+**Inputs:**
+
+```text
+help
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Commands:
+  todo <description>
+  deadline <description> /by <yyyy-MM-dd>
+  event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>
+  list | list snoozed | find <keyword>
+  mark <number> | unmark <number> | delete <number>
+  snooze <number> /until <yyyy-MM-dd>
+  bye
+{{DIVIDER}}
+{{DIVIDER}}
+I'm out. Your tasks aren't — don't ghost them.
+{{DIVIDER}}
+```

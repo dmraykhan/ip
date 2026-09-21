@@ -9,6 +9,10 @@ Twizzy is your task-list twin: it remembers the boring stuff so you do not have 
 - Dates must use `yyyy-MM-dd`, including leading zeroes.
 - Extra spaces around command details are ignored.
 
+## Show command help
+
+Use `help` to display the supported commands and their required markers. This is the fastest way to check the syntax for deadlines, events, and snoozing while using the GUI.
+
 ## Add a todo
 
 Use `todo <description>` for a task without a date.

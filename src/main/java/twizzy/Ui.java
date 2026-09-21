@@ -53,6 +53,18 @@ public class Ui {
         System.out.println("I'm out. Your tasks aren't — don't ghost them.");
     }
 
+    /** Displays a compact reference for all supported commands. */
+    public void showHelp() {
+        System.out.println("Commands:");
+        System.out.println("  todo <description>");
+        System.out.println("  deadline <description> /by <yyyy-MM-dd>");
+        System.out.println("  event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>");
+        System.out.println("  list | list snoozed | find <keyword>");
+        System.out.println("  mark <number> | unmark <number> | delete <number>");
+        System.out.println("  snooze <number> /until <yyyy-MM-dd>");
+        System.out.println("  bye");
+    }
+
     /** Displays a user-facing error. */
     public void showError(String message) {
         System.out.println("Yeah, no. " + message);

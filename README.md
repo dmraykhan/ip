@@ -19,10 +19,10 @@ Twizzy is a playful command-line task manager built for the NUS CS2103T individu
 Twizzy requires **JDK 25**.
 
 1. Clone this repository.
-2. Open the project in IntelliJ IDEA.
+2. Open the project root in IntelliJ IDEA as a **Gradle** project. If prompted, choose **Load Gradle Changes**.
 3. Set the project SDK and language level to JDK 25.
-4. Open `src/main/java/twizzy/Twizzy.java`.
-5. Run `Twizzy.main()`.
+4. Run the Gradle `application > run` task to open the GUI. Alternatively, mark `src/main/resources` as a **Resources Root** before running `twizzy.gui.Launcher.main()` directly.
+5. Run `Twizzy.main()` only when you want the console interface.
 
 You should see:
 
@@ -49,6 +49,7 @@ ____________________________________________________________
 | Add a deadline | `deadline <description> /by <yyyy-MM-dd>` | `deadline submit report /by 2026-09-18` |
 | Add an event | `event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>` | `event recess week /from 2026-09-21 /to 2026-09-27` |
 | Show tasks | `list` | `list` |
+| Show command help | `help` | `help` |
 | Complete a task | `mark <number>` | `mark 2` |
 | Reopen a task | `unmark <number>` | `unmark 2` |
 | Delete a task | `delete <number>` | `delete 1` |

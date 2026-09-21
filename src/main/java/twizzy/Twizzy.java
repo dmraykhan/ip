@@ -69,6 +69,7 @@ public class Twizzy {
         try {
             return switch (commandType) {
             case BYE -> "I'm out. Your tasks aren't — don't ghost them.";
+            case HELP -> helpText();
             case LIST -> command.equals("list snoozed")
                     ? formatSnoozedTaskList(tasks.getSnoozedTasks(LocalDate.now()))
                     : formatTaskList(tasks.getActiveTasks(LocalDate.now()), "Here's the current chaos:");
@@ -113,6 +114,17 @@ public class Twizzy {
                     .append(displayedTasks.get(i));
         }
         return response.toString();
+    }
+
+    private String helpText() {
+        return "Commands:" + System.lineSeparator()
+                + "  todo <description>" + System.lineSeparator()
+                + "  deadline <description> /by <yyyy-MM-dd>" + System.lineSeparator()
+                + "  event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>" + System.lineSeparator()
+                + "  list | list snoozed | find <keyword>" + System.lineSeparator()
+                + "  mark <number> | unmark <number> | delete <number>" + System.lineSeparator()
+                + "  snooze <number> /until <yyyy-MM-dd>" + System.lineSeparator()
+                + "  bye";
     }
 
     private String formatSnoozedTaskList(List<Task> snoozedTasks) {
@@ -184,6 +196,9 @@ public class Twizzy {
     private void execute(String command, CommandType commandType)
             throws TwizzyException, IOException {
         switch (commandType) {
+        case HELP:
+            ui.showHelp();
+            break;
         case FIND:
             findTasks(command);
             break;
