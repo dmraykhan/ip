@@ -52,6 +52,39 @@ public class Twizzy {
         ui.close();
     }
 
+    /**
+     * Processes one command and returns the response for a graphical user interface.
+     *
+     * @param command complete command entered by the user
+     * @return user-facing response for the command
+     */
+    public String getResponse(String command) {
+        CommandType commandType = CommandType.from(command);
+        try {
+            return switch (commandType) {
+            case BYE -> "I'm out. Your tasks aren't — don't ghost them.";
+            case LIST -> formatTaskList(tasks.asList(), "Here's the current chaos:");
+            case FIND -> formatTaskList(tasks.findTasks(parser.parseFindKeyword(command)),
+                    "Here are the matching tasks in your list:");
+            case MARK -> formatStatusChange(command, commandType, true);
+            case UNMARK -> formatStatusChange(command, commandType, false);
+            case DELETE -> formatDeletion(command, commandType);
+            case TODO, DEADLINE, EVENT, UNKNOWN -> formatAddition(command, commandType);
+            };
+        } catch (TwizzyException | IOException exception) {
+            return "Yeah, no. " + exception.getMessage();
+        }
+    }
+
+    /** Loads saved tasks for a graphical user interface without printing to standard output. */
+    public void initializeForGui() {
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException exception) {
+            tasks = new TaskList(List.of());
+        }
+    }
+
     private void loadTasks() {
         try {
             tasks = new TaskList(storage.load());
@@ -60,6 +93,56 @@ public class Twizzy {
             ui.showError("I couldn't load saved tasks: " + exception.getMessage());
             ui.showDivider();
         }
+    }
+
+    private String formatTaskList(List<Task> displayedTasks, String heading) {
+        StringBuilder response = new StringBuilder(heading);
+        for (int i = 0; i < displayedTasks.size(); i++) {
+            response.append(System.lineSeparator())
+                    .append(i + 1)
+                    .append('.')
+                    .append(displayedTasks.get(i));
+        }
+        return response.toString();
+    }
+
+    private String formatAddition(String command, CommandType commandType)
+            throws TwizzyException, IOException {
+        Task task = parser.parseTask(command, commandType);
+        tasks.add(task);
+        storage.save(tasks.asList());
+        return "Locked in. I added:" + System.lineSeparator()
+                + "  " + task + System.lineSeparator()
+                + formatTaskCount();
+    }
+
+    private String formatStatusChange(String command, CommandType commandType, boolean isDone)
+            throws TwizzyException, IOException {
+        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.size());
+        Task task = tasks.get(taskIndex);
+        if (isDone) {
+            task.markAsDone();
+        } else {
+            task.markAsNotDone();
+        }
+        storage.save(tasks.asList());
+        String message = isDone ? "Huge. One less thing haunting you:" : "Plot twist. This one's back:";
+        return message + System.lineSeparator() + "  " + task;
+    }
+
+    private String formatDeletion(String command, CommandType commandType)
+            throws TwizzyException, IOException {
+        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.size());
+        Task removedTask = tasks.remove(taskIndex);
+        storage.save(tasks.asList());
+        return "Gone. We never knew this task:" + System.lineSeparator()
+                + "  " + removedTask + System.lineSeparator()
+                + formatTaskCount();
+    }
+
+    private String formatTaskCount() {
+        String taskWord = tasks.size() == 1 ? "task" : "tasks";
+        return "You're juggling " + tasks.size() + " " + taskWord + " now.";
     }
 
     private void execute(String command, CommandType commandType)
