@@ -20,11 +20,13 @@ public class TaskList {
 
     /** Returns the task at a zero-based index. */
     public Task get(int index) {
+        assertValidIndex(index);
         return tasks.get(index);
     }
 
     /** Removes and returns the task at a zero-based index. */
     public Task remove(int index) {
+        assertValidIndex(index);
         return tasks.remove(index);
     }
 
@@ -53,5 +55,14 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Confirms that an internal caller has already validated a task index.
+     *
+     * @param index zero-based task index to verify
+     */
+    private void assertValidIndex(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index must refer to an existing task.";
     }
 }
