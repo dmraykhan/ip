@@ -46,12 +46,8 @@ public class TaskList {
      */
     public List<Task> findTasks(String keyword) {
         String lowercaseKeyword = keyword.toLowerCase(Locale.ROOT);
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase(Locale.ROOT).contains(lowercaseKeyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+        return tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase(Locale.ROOT).contains(lowercaseKeyword))
+                .toList();
     }
 }
