@@ -229,7 +229,7 @@ You're juggling 1 task now.
 Yeah, no. A todo needs a description. Try: todo <description>
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in. I added:
@@ -579,22 +579,22 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
-Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.
+Yeah, no. I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, snooze, or bye.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in. I added:
@@ -682,6 +682,80 @@ I'm out. Your tasks aren't — don't ghost them.
 Here's the current chaos:
 1.[D][ ] submit work (by: Sep 18 2026)
 2.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
+{{DIVIDER}}
+{{DIVIDER}}
+I'm out. Your tasks aren't — don't ghost them.
+{{DIVIDER}}
+```
+
+## TC13: Snooze tasks until a future date
+
+**Aim:** Verify snoozed tasks are hidden from active commands, remain viewable separately, reject invalid dates, and persist across restarts.
+
+**Inputs:**
+
+```text
+todo active task
+todo postponed task
+snooze 2 /until 2099-12-31
+list
+list snoozed
+find postponed
+mark 2
+snooze 1 /until
+snooze 1 /until 2020-01-01
+{{RESTART}}
+list
+list snoozed
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Locked in. I added:
+  [T][ ] active task
+You're juggling 1 task now.
+{{DIVIDER}}
+{{DIVIDER}}
+Locked in. I added:
+  [T][ ] postponed task
+You're juggling 2 tasks now.
+{{DIVIDER}}
+{{DIVIDER}}
+Snoozed. Future you can handle this:
+  [T][ ] postponed task (snoozed until: Dec 31 2099)
+{{DIVIDER}}
+{{DIVIDER}}
+Here's the current chaos:
+1.[T][ ] active task
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the snoozed tasks:
+1.[T][ ] postponed task (snoozed until: Dec 31 2099)
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the matching tasks in your list:
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. Choose a task number from 1 to 1.
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. The snooze date cannot be empty after /until.
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. The snooze date must be after today.
+{{DIVIDER}}
+{{STARTUP}}
+{{DIVIDER}}
+Here's the current chaos:
+1.[T][ ] active task
+{{DIVIDER}}
+{{DIVIDER}}
+Here are the snoozed tasks:
+1.[T][ ] postponed task (snoozed until: Dec 31 2099)
 {{DIVIDER}}
 {{DIVIDER}}
 I'm out. Your tasks aren't — don't ghost them.

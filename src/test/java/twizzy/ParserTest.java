@@ -61,4 +61,12 @@ class ParserTest {
 
         assertEquals("Please provide a keyword. Try: find <keyword>", exception.getMessage());
     }
+
+    @Test
+    void parseSnooze_validFutureDate_returnsTaskIndexAndDate() throws TwizzyException {
+        Parser.SnoozeDetails details = parser.parseSnooze("snooze 2 /until 2099-12-31", 3);
+
+        assertEquals(1, details.taskIndex());
+        assertEquals(LocalDate.of(2099, 12, 31), details.until());
+    }
 }

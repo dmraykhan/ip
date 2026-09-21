@@ -1,5 +1,7 @@
 package twizzy;
 
+import java.time.LocalDate;
+
 /**
  * Represents a task and whether it has been completed.
  */
@@ -7,6 +9,8 @@ public class Task {
     protected String description;
 
     protected boolean isDone;
+
+    private LocalDate snoozedUntil;
 
     /**
      * Creates an incomplete task with the given description.
@@ -43,6 +47,34 @@ public class Task {
      */
     public boolean isDone() {
         return isDone;
+    }
+
+    /**
+     * Returns the date on which this task becomes active again, if it has been snoozed.
+     *
+     * @return snooze end date, or {@code null} when the task has not been snoozed
+     */
+    public LocalDate getSnoozedUntil() {
+        return snoozedUntil;
+    }
+
+    /**
+     * Reports whether the task remains deferred on the supplied date.
+     *
+     * @param date date on which to check the snooze status
+     * @return true when the task should remain hidden on that date
+     */
+    public boolean isSnoozedOn(LocalDate date) {
+        return snoozedUntil != null && snoozedUntil.isAfter(date);
+    }
+
+    /**
+     * Defers this task until the given date.
+     *
+     * @param until first date on which the task should become active again
+     */
+    public void snoozeUntil(LocalDate until) {
+        snoozedUntil = until;
     }
 
     /** Marks this task as completed. */
