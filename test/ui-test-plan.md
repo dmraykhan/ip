@@ -4,7 +4,7 @@ Run these cases with the project-specific `$test-ui` skill. Each case starts a f
 
 Within a case, `{{RESTART}}` stops Twizzy and starts it again in the same temporary directory so saved data can be checked.
 
-For GUI-only visual behavior, manually verify that a rejected command begins with “Nah, you gotta lock in, gang.” in a red, bordered response bubble and that widening the window also widens long message bubbles. The console cases below continue to verify the corresponding command responses.
+For GUI-only visual behavior, manually verify that the application uses a dark background; bot bubbles are a distinct dark blue-grey, user bubbles are deep blue with legible bold white text, and a rejected command begins with “Nah, you gotta lock in, gang.” in an amber alert bubble with a left accent. Also verify that bot text uses PT Mono at 16px while user text uses Avenir Next at 13px, and that widening the window widens long message bubbles. The console cases below continue to verify the corresponding command responses.
 
 ## TC1: Exit the chatbot
 
@@ -47,29 +47,36 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] read book
+  ◷ read book
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [D][ ] return BOOK (by: Sep 20 2026)
+  ◷ return BOOK
+  ↳ Due: 20 Sep 2026
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [E][ ] club meeting (from: Sep 21 2026 to: Sep 22 2026)
+  ◷ club meeting
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 You're juggling 3 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the matching tasks in your list:
-1.[T][ ] read book
-2.[D][ ] return BOOK (by: Sep 20 2026)
+Todos
+1. ◷ read book
+
+Deadlines
+2. ◷ return BOOK
+  ↳ Due: 20 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Nah, you gotta lock in, gang. Please provide a keyword. Try: find <keyword>
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the matching tasks in your list:
+No tasks matched that, twin. Try another keyword.
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -95,18 +102,19 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] read book
+  ◷ read book
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] return book
+  ◷ return book
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] read book
-2.[T][ ] return book
+Todos
+1. ◷ read book
+2. ◷ return book
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -135,31 +143,33 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] read book
+  ◷ read book
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] return book
+  ◷ return book
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Marked done, twin:
-  [T][X] return book
+  ★ return book
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] read book
-2.[T][X] return book
+Todos
+1. ◷ read book
+2. ★ return book
 {{DIVIDER}}
 {{DIVIDER}}
 Marked pending, gang:
-  [T][ ] return book
+  ◷ return book
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] read book
-2.[T][ ] return book
+Todos
+1. ◷ read book
+2. ◷ return book
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -185,18 +195,25 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [D][ ] do homework (by: Sep 18 2026)
+  ◷ do homework
+  ↳ Due: 18 Sep 2026
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
+  ◷ project meeting
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[D][ ] do homework (by: Sep 18 2026)
-2.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
+Deadlines
+1. ◷ do homework
+  ↳ Due: 18 Sep 2026
+
+Events
+2. ◷ project meeting
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -224,7 +241,7 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] first task
+  ◷ first task
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
@@ -235,13 +252,14 @@ Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] second task
+  ◷ second task
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] first task
-2.[T][ ] second task
+Todos
+1. ◷ first task
+2. ◷ second task
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -323,18 +341,25 @@ Nah, you gotta lock in, gang. The event end date must be a valid date in yyyy-MM
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [D][ ] report (by: Feb 29 2024)
+  ◷ report
+  ↳ Due: 29 Feb 2024
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [E][ ] meeting (from: Sep 21 2026 to: Sep 22 2026)
+  ◷ meeting
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[D][ ] report (by: Feb 29 2024)
-2.[E][ ] meeting (from: Sep 21 2026 to: Sep 22 2026)
+Deadlines
+1. ◷ report
+  ↳ Due: 29 Feb 2024
+
+Events
+2. ◷ meeting
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -378,7 +403,7 @@ Nah, you gotta lock in, gang. There are no tasks to unmark.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] stable task
+  ◷ stable task
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
@@ -401,11 +426,12 @@ Nah, you gotta lock in, gang. Choose a task number from 1 to 1.
 {{DIVIDER}}
 {{DIVIDER}}
 Marked done, twin:
-  [T][X] stable task
+  ★ stable task
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][X] stable task
+Todos
+1. ★ stable task
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -423,8 +449,8 @@ todo read book
 deadline return book /by 2026-09-20
 event project meeting /from 2026-09-21 /to 2026-09-22
 todo join club
-mark 2
-delete 2
+mark 3
+delete 3
 list
 delete 1
 delete 2
@@ -438,52 +464,62 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] read book
+  ◷ read book
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [D][ ] return book (by: Sep 20 2026)
+  ◷ return book
+  ↳ Due: 20 Sep 2026
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
+  ◷ project meeting
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 You're juggling 3 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] join club
+  ◷ join club
 You're juggling 4 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Marked done, twin:
-  [D][X] return book (by: Sep 20 2026)
+  ★ return book
+  ↳ Due: 20 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Deleted, broski:
-  [D][X] return book (by: Sep 20 2026)
+  ★ return book
+  ↳ Due: 20 Sep 2026
 You're juggling 3 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] read book
-2.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
-3.[T][ ] join club
+Todos
+1. ◷ read book
+2. ◷ join club
+
+Events
+3. ◷ project meeting
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Deleted, broski:
-  [T][ ] read book
+  ◷ read book
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Deleted, broski:
-  [T][ ] join club
+  ◷ project meeting
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)
+Todos
+1. ◷ join club
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -523,7 +559,7 @@ Nah, you gotta lock in, gang. There are no tasks to delete.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] safe task
+  ◷ safe task
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
@@ -540,15 +576,17 @@ Nah, you gotta lock in, gang. The task number must be a whole number.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] safe task
+Todos
+1. ◷ safe task
 {{DIVIDER}}
 {{DIVIDER}}
 Deleted, broski:
-  [T][ ] safe task
+  ◷ safe task
 You're juggling 0 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
+No active tasks yet, twin. Add one with todo <description>.
 {{DIVIDER}}
 {{DIVIDER}}
 Nah, you gotta lock in, gang. There are no tasks to delete.
@@ -600,12 +638,13 @@ Nah, you gotta lock in, gang. I don't recognize that command. Try todo, deadline
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] valid task
+  ◷ valid task
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] valid task
+Todos
+1. ◷ valid task
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -640,22 +679,25 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] read A | B
+  ◷ read A | B
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [D][ ] submit work (by: Sep 18 2026)
+  ◷ submit work
+  ↳ Due: 18 Sep 2026
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
+  ◷ consultation
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 You're juggling 3 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Marked done, twin:
-  [D][X] submit work (by: Sep 18 2026)
+  ★ submit work
+  ↳ Due: 18 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -663,18 +705,26 @@ Catch you later, broski. Don't ghost your tasks.
 {{STARTUP}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] read A | B
-2.[D][X] submit work (by: Sep 18 2026)
-3.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
+Todos
+1. ◷ read A | B
+
+Deadlines
+2. ★ submit work
+  ↳ Due: 18 Sep 2026
+
+Events
+3. ◷ consultation
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Deleted, broski:
-  [T][ ] read A | B
+  ◷ read A | B
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Marked pending, gang:
-  [D][ ] submit work (by: Sep 18 2026)
+  ◷ submit work
+  ↳ Due: 18 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -682,8 +732,13 @@ Catch you later, broski. Don't ghost your tasks.
 {{STARTUP}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[D][ ] submit work (by: Sep 18 2026)
-2.[E][ ] consultation (from: Sep 21 2026 to: Sep 22 2026)
+Deadlines
+1. ◷ submit work
+  ↳ Due: 18 Sep 2026
+
+Events
+2. ◷ consultation
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -718,28 +773,33 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] active task
+  ◷ active task
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] postponed task
+  ◷ postponed task
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Snoozed, gang:
-  [T][ ] postponed task (snoozed until: Dec 31 2099)
+  ◷ postponed task
+  ↳ Returns: 31 Dec 2099
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] active task
+Todos
+1. ◷ active task
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the snoozed tasks:
-1.[T][ ] postponed task (snoozed until: Dec 31 2099)
+Todos
+1. ◷ postponed task
+  ↳ Returns: 31 Dec 2099
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the matching tasks in your list:
+No tasks matched that, twin. Try another keyword.
 {{DIVIDER}}
 {{DIVIDER}}
 Nah, you gotta lock in, gang. Choose a task number from 1 to 1.
@@ -753,11 +813,14 @@ Nah, you gotta lock in, gang. The snooze date must be after today.
 {{STARTUP}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] active task
+Todos
+1. ◷ active task
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the snoozed tasks:
-1.[T][ ] postponed task (snoozed until: Dec 31 2099)
+Todos
+1. ◷ postponed task
+  ↳ Returns: 31 Dec 2099
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -780,7 +843,7 @@ bye
 ```text
 {{STARTUP}}
 {{DIVIDER}}
-Commands:
+Commands, gang:
   todo <description>
   deadline <description> /by <yyyy-MM-dd>
   event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>
@@ -818,19 +881,19 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] prepare slides
+  ◷ prepare slides
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Marked done, twin:
-  [T][X] prepare slides
+  ★ prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
 Nah, you gotta lock in, gang. That task is already marked as done.
 {{DIVIDER}}
 {{DIVIDER}}
 Marked pending, gang:
-  [T][ ] prepare slides
+  ◷ prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
 Nah, you gotta lock in, gang. That task is already marked as not done.
@@ -843,7 +906,8 @@ Nah, you gotta lock in, gang. An event must end after it starts.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] prepare slides
+Todos
+1. ◷ prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -871,25 +935,26 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] prepare slides
+  ◷ prepare slides
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
-Nah, you gotta lock in, gang. That task is already on your list, gang. Try editing the existing one.
+Nah, you gotta lock in, gang. That task is already on your list, gang. Use list to find it, or complete it before adding it again.
 {{DIVIDER}}
 {{DIVIDER}}
 Marked done, twin:
-  [T][X] prepare slides
+  ★ prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] PREPARE SLIDES
+  ◷ PREPARE SLIDES
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][X] prepare slides
-2.[T][ ] PREPARE SLIDES
+Todos
+1. ★ prepare slides
+2. ◷ PREPARE SLIDES
 {{DIVIDER}}
 {{DIVIDER}}
 Catch you later, broski. Don't ghost your tasks.
@@ -921,33 +986,38 @@ bye
 {{STARTUP}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] active task
+  ◷ active task
 You're juggling 1 task now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Locked in, gang. I added:
-  [T][ ] paused task
+  ◷ paused task
 You're juggling 2 tasks now, twin.
 {{DIVIDER}}
 {{DIVIDER}}
 Snoozed, gang:
-  [T][ ] paused task (snoozed until: Dec 31 2099)
+  ◷ paused task
+  ↳ Returns: 31 Dec 2099
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the snoozed tasks:
-1.[T][ ] paused task (snoozed until: Dec 31 2099)
+Todos
+1. ◷ paused task
+  ↳ Returns: 31 Dec 2099
 {{DIVIDER}}
 {{DIVIDER}}
 Unsnoozed, twin:
-  [T][ ] paused task
+  ◷ paused task
 {{DIVIDER}}
 {{DIVIDER}}
 Your active tasks, gang:
-1.[T][ ] active task
-2.[T][ ] paused task
+Todos
+1. ◷ active task
+2. ◷ paused task
 {{DIVIDER}}
 {{DIVIDER}}
 Here are the snoozed tasks:
+No snoozed tasks right now, gang.
 {{DIVIDER}}
 {{DIVIDER}}
 Nah, you gotta lock in, gang. There are no tasks to unsnooze.

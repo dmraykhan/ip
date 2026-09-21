@@ -9,7 +9,7 @@ import java.util.Locale;
  */
 public class Deadline extends Task {
     private static final DateTimeFormatter DISPLAY_FORMAT =
-            DateTimeFormatter.ofPattern("MMM d uuuu", Locale.ENGLISH);
+            DateTimeFormatter.ofPattern("d MMM uuuu", Locale.ENGLISH);
 
     protected LocalDate by;
 
@@ -40,6 +40,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DISPLAY_FORMAT) + ")";
+        return super.toString() + System.lineSeparator() + "  ↳ Due: " + by.format(DISPLAY_FORMAT);
     }
 }

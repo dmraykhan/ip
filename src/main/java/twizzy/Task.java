@@ -25,10 +25,10 @@ public class Task {
     /**
      * Returns the icon used to display the task's completion status.
      *
-     * @return {@code X} if completed, or a space otherwise
+     * @return a star if completed, or a clock if still pending
      */
     public String getStatusIcon() {
-        return isDone ? "X" : " ";
+        return isDone ? "★" : "◷";
     }
 
     /**
@@ -121,6 +121,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return getStatusIcon() + " " + description;
     }
 }

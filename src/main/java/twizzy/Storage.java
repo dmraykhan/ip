@@ -1,8 +1,10 @@
 package twizzy;
 
 import java.io.IOException;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -50,21 +52,27 @@ public class Storage {
 
     /**
      * Replaces the data file contents with the current task list.
+     * The replacement data is written completely before it replaces the existing file.
      *
      * @param tasks tasks to persist
      * @throws IOException if the directory or file cannot be written
      */
     public void save(List<Task> tasks) throws IOException {
-        Path parentDirectory = filePath.getParent();
-        if (parentDirectory != null) {
-            Files.createDirectories(parentDirectory);
-        }
+        Path targetPath = filePath.toAbsolutePath();
+        Path parentDirectory = targetPath.getParent();
+        Files.createDirectories(parentDirectory);
 
         ArrayList<String> lines = new ArrayList<>();
         for (Task task : tasks) {
             lines.add(formatTask(task));
         }
-        Files.write(filePath, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Path temporaryFile = Files.createTempFile(parentDirectory, targetPath.getFileName().toString(), ".tmp");
+        try {
+            Files.write(temporaryFile, lines, StandardOpenOption.TRUNCATE_EXISTING);
+            replaceDataFile(temporaryFile, targetPath);
+        } finally {
+            Files.deleteIfExists(temporaryFile);
+        }
     }
 
     private String formatTask(Task task) {
@@ -93,16 +101,20 @@ public class Storage {
         switch (fields.get(0)) {
         case "T":
             requireFieldCount(fields, 3, 4);
-            task = new Todo(fields.get(2));
+            task = new Todo(requireDescription(fields.get(2)));
             break;
         case "D":
             requireFieldCount(fields, 4, 5);
-            task = new Deadline(fields.get(2), LocalDate.parse(fields.get(3)));
+            task = new Deadline(requireDescription(fields.get(2)), LocalDate.parse(fields.get(3)));
             break;
         case "E":
             requireFieldCount(fields, 5, 6);
-            task = new Event(fields.get(2), LocalDate.parse(fields.get(3)),
-                    LocalDate.parse(fields.get(4)));
+            LocalDate from = LocalDate.parse(fields.get(3));
+            LocalDate to = LocalDate.parse(fields.get(4));
+            if (!to.isAfter(from)) {
+                throw new IllegalArgumentException("Event must end after it starts");
+            }
+            task = new Event(requireDescription(fields.get(2)), from, to);
             break;
         default:
             throw new IllegalArgumentException("Unknown task type");
@@ -136,6 +148,22 @@ public class Storage {
     private void requireFieldCount(List<String> fields, int minimumCount, int maximumCount) {
         if (fields.size() < minimumCount || fields.size() > maximumCount) {
             throw new IllegalArgumentException("Unexpected number of fields");
+        }
+    }
+
+    private String requireDescription(String description) {
+        if (description.isBlank()) {
+            throw new IllegalArgumentException("Task description cannot be blank");
+        }
+        return description;
+    }
+
+    private void replaceDataFile(Path temporaryFile, Path targetPath) throws IOException {
+        try {
+            Files.move(temporaryFile, targetPath, StandardCopyOption.ATOMIC_MOVE,
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (AtomicMoveNotSupportedException exception) {
+            Files.move(temporaryFile, targetPath, StandardCopyOption.REPLACE_EXISTING);
         }
     }
 

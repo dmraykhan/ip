@@ -57,6 +57,7 @@ test {
 
 application {
     mainClass = 'twizzy.gui.Launcher'
+    applicationDefaultJvmArgs = ['--enable-native-access=javafx.graphics']
 }
 
 jar {

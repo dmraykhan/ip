@@ -11,7 +11,7 @@ public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
 
     private static final DateTimeFormatter DISPLAY_DATE_FORMAT =
-            DateTimeFormatter.ofPattern("MMM d uuuu", Locale.ENGLISH);
+            DateTimeFormatter.ofPattern("d MMM uuuu", Locale.ENGLISH);
 
     private static final String BANNER = " _______        _                     \n"
             + "|__   __|      (_)                    \n"
@@ -70,30 +70,27 @@ public class Ui {
         System.out.println("Nah, you gotta lock in, gang. " + message);
     }
 
+    /** Displays a complete multi-line response supplied by the application. */
+    public void showResponse(String response) {
+        System.out.println(response);
+    }
+
     /** Displays all tasks in their current order. */
     public void showTaskList(TaskList tasks, LocalDate date) {
         System.out.println("Your active tasks, gang:");
-        List<Task> activeTasks = tasks.getActiveTasks(date);
-        for (int i = 0; i < activeTasks.size(); i++) {
-            System.out.println((i + 1) + "." + activeTasks.get(i));
-        }
+        showGroupedTasks(tasks.getActiveTasks(date), false);
     }
 
     /** Displays tasks that remain deferred on the current date. */
     public void showSnoozedTasks(List<Task> snoozedTasks) {
         System.out.println("Here are the snoozed tasks:");
-        for (int i = 0; i < snoozedTasks.size(); i++) {
-            Task task = snoozedTasks.get(i);
-            System.out.println((i + 1) + "." + task + formatSnoozeDate(task));
-        }
+        showGroupedTasks(snoozedTasks, true);
     }
 
     /** Displays the tasks that match a user's search keyword. */
     public void showMatchingTasks(List<Task> matchingTasks) {
         System.out.println("Here are the matching tasks in your list:");
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.get(i));
-        }
+        showGroupedTasks(matchingTasks, false);
     }
 
     /** Displays confirmation that a task was added. */
@@ -144,7 +141,36 @@ public class Ui {
         System.out.println("You're juggling " + taskCount + " " + taskWord + " now, twin.");
     }
 
+    /** Displays a numbered task list grouped by the task's concrete type. */
+    private void showGroupedTasks(List<Task> displayedTasks, boolean includeSnoozeDate) {
+        String previousGroup = "";
+        for (int i = 0; i < displayedTasks.size(); i++) {
+            Task task = displayedTasks.get(i);
+            String group = getTaskGroupName(task);
+            if (!group.equals(previousGroup)) {
+                if (!previousGroup.isEmpty()) {
+                    System.out.println();
+                }
+                System.out.println(group);
+                previousGroup = group;
+            }
+            String snoozeDate = includeSnoozeDate ? formatSnoozeDate(task) : "";
+            System.out.println((i + 1) + ". " + task + snoozeDate);
+        }
+    }
+
+    /** Returns the user-facing heading for a task type. */
+    private String getTaskGroupName(Task task) {
+        if (task instanceof Todo) {
+            return "Todos";
+        }
+        if (task instanceof Deadline) {
+            return "Deadlines";
+        }
+        return "Events";
+    }
+
     private String formatSnoozeDate(Task task) {
-        return " (snoozed until: " + task.getSnoozedUntil().format(DISPLAY_DATE_FORMAT) + ")";
+        return System.lineSeparator() + "  ↳ Returns: " + task.getSnoozedUntil().format(DISPLAY_DATE_FORMAT);
     }
 }

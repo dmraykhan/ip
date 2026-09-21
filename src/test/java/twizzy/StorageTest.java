@@ -29,8 +29,9 @@ class StorageTest {
         storage.save(List.of(todo, deadline, event));
         List<Task> loadedTasks = storage.load();
 
-        assertEquals(List.of("[T][ ] read A | B", "[D][X] submit report (by: Sep 30 2026)",
-                "[E][ ] project meeting (from: Sep 21 2026 to: Sep 22 2026)"),
+        assertEquals(List.of("◷ read A | B", "★ submit report" + System.lineSeparator()
+                        + "  ↳ Due: 30 Sep 2026", "◷ project meeting" + System.lineSeparator()
+                        + "  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026"),
                 loadedTasks.stream().map(Task::toString).toList());
     }
 

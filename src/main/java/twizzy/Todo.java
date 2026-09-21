@@ -13,13 +13,4 @@ public class Todo extends Task {
         super(description);
     }
 
-    /**
-     * Formats this task with the todo type icon.
-     *
-     * @return display form of this todo
-     */
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
-    }
 }

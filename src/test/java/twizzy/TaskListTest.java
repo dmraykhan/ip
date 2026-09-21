@@ -35,6 +35,16 @@ class TaskListTest {
     }
 
     @Test
+    void getActiveTasks_mixedTypes_groupsTasksInDisplayedOrder() {
+        Todo todo = new Todo("read notes");
+        Deadline deadline = new Deadline("submit report", LocalDate.of(2026, 9, 30));
+        Event event = new Event("project meeting", LocalDate.of(2026, 9, 21), LocalDate.of(2026, 9, 22));
+        TaskList tasks = new TaskList(List.of(event, todo, deadline));
+
+        assertEquals(List.of(todo, deadline, event), tasks.getActiveTasks(LocalDate.of(2026, 9, 20)));
+    }
+
+    @Test
     void containsDuplicate_sameTaskDetailsIgnoringCase_returnsTrue() {
         Todo completedTask = new Todo("completed task");
         completedTask.markAsDone();

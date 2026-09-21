@@ -6,12 +6,15 @@ Twizzy is your task-list twin: it remembers the boring stuff so you do not have 
 
 ![Twizzy GUI](Ui.png)
 
+Twizzy uses a dark chat-style interface. Your commands appear in deep-blue bubbles, Twizzy replies appear in blue-grey bubbles, and invalid commands are highlighted in amber. The task summary at the top shows the total, completed, and currently snoozed task counts.
+
 ## Command format
 
 - Type one command per line.
 - Task numbers come from the latest `list` output, except `unsnooze`, which uses `list snoozed` numbers.
 - Dates must use `yyyy-MM-dd`, including leading zeroes.
 - Extra spaces around command details are ignored.
+- `◷` identifies a pending task and `★` identifies a completed task.
 
 ## Show command help
 
@@ -27,7 +30,7 @@ todo read chapter 3
 
 ```text
 Locked in, gang. I added:
-  [T][ ] read chapter 3
+  ◷ read chapter 3
 You're juggling 1 task now, twin.
 ```
 
@@ -41,7 +44,8 @@ deadline submit report /by 2026-09-18
 
 ```text
 Locked in, gang. I added:
-  [D][ ] submit report (by: Sep 18 2026)
+  ◷ submit report
+  ↳ Due: 18 Sep 2026
 You're juggling 2 tasks now, twin.
 ```
 
@@ -55,7 +59,8 @@ event hackathon /from 2026-09-21 /to 2026-09-22
 
 ```text
 Locked in, gang. I added:
-  [E][ ] hackathon (from: Sep 21 2026 to: Sep 22 2026)
+  ◷ hackathon
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 You're juggling 3 tasks now, twin.
 ```
 
@@ -65,12 +70,36 @@ Use `list` to see the current task numbers and statuses.
 
 ```text
 Your active tasks, gang:
-1.[T][ ] read chapter 3
-2.[D][ ] submit report (by: Sep 18 2026)
-3.[E][ ] hackathon (from: Sep 21 2026 to: Sep 22 2026)
+Todos
+1. ◷ read chapter 3
+
+Deadlines
+2. ◷ submit report
+  ↳ Due: 18 Sep 2026
+
+Events
+3. ◷ hackathon
+  ↳ Schedule: 21 Sep 2026 → 22 Sep 2026
 ```
 
-`[ ]` means pending and `[X]` means completed. The letters `T`, `D`, and `E` identify todos, deadlines, and events.
+`◷` means pending and `★` means completed. Tasks are grouped under Todos, Deadlines, and Events to make the list easier to scan. The displayed order is always Todos first, then Deadlines, then Events; use those current numbers with `mark`, `unmark`, `delete`, and `snooze`.
+
+## Find tasks
+
+Use `find <keyword>` to search active task descriptions without worrying about letter case. Matching tasks keep the same grouped order used by `list`.
+
+```text
+find report
+```
+
+```text
+Here are the matching tasks in your list:
+Deadlines
+1. ◷ submit report
+  ↳ Due: 18 Sep 2026
+```
+
+If nothing matches, Twizzy says `No tasks matched that, twin. Try another keyword.`
 
 ## Mark or unmark a task
 
@@ -82,7 +111,8 @@ mark 2
 
 ```text
 Marked done, twin:
-  [D][X] submit report (by: Sep 18 2026)
+  ★ submit report
+  ↳ Due: 18 Sep 2026
 ```
 
 Use `unmark <number>` if the task returns for a sequel:
@@ -93,7 +123,8 @@ unmark 2
 
 ```text
 Marked pending, gang:
-  [D][ ] submit report (by: Sep 18 2026)
+  ◷ submit report
+  ↳ Due: 18 Sep 2026
 ```
 
 ## Snooze a task
@@ -106,10 +137,20 @@ snooze 2 /until 2099-12-31
 
 ```text
 Snoozed, gang:
-  [D][ ] submit report (by: Sep 18 2026) (snoozed until: Dec 31 2099)
+  ◷ submit report
+  ↳ Due: 18 Sep 2026
+  ↳ Returns: 31 Dec 2099
 ```
 
 Use `list snoozed` to inspect deferred tasks and their return dates.
+
+```text
+Here are the snoozed tasks:
+Deadlines
+1. ◷ submit report
+  ↳ Due: 18 Sep 2026
+  ↳ Returns: 31 Dec 2099
+```
 
 ## Unsnooze a task
 
@@ -121,7 +162,8 @@ unsnooze 1
 
 ```text
 Unsnoozed, twin:
-  [D][ ] submit report (by: Sep 18 2026)
+  ◷ submit report
+  ↳ Due: 18 Sep 2026
 ```
 
 ## Delete a task
@@ -134,7 +176,7 @@ delete 1
 
 ```text
 Deleted, broski:
-  [T][ ] read chapter 3
+  ◷ read chapter 3
 You're juggling 2 tasks now, twin.
 ```
 
@@ -148,11 +190,15 @@ Catch you later, broski. Don't ghost your tasks.
 
 ## Saved data
 
-Twizzy saves after every successful add, mark, unmark, delete, snooze, or unsnooze command. On startup, it loads tasks from `data/twizzy.txt`. If the directory or file does not exist, Twizzy starts with an empty list and creates them on the first save. Existing data files remain compatible when snooze information is added. If the GUI cannot read a saved-data file, it shows an error and locks task-changing commands so the file cannot be overwritten accidentally.
+Twizzy saves after every successful add, mark, unmark, delete, snooze, or unsnooze command. On startup, it loads tasks from `data/twizzy.txt`, relative to the folder from which you run Twizzy. If the directory or file does not exist, Twizzy starts with an empty list and creates them on the first save. Existing data files remain compatible when snooze information is added.
+
+Before replacing saved data, Twizzy writes the full replacement to a temporary file in the same local `data/` folder. It then replaces `twizzy.txt`, reducing the risk of a partial file if the app stops during a save. Twizzy does not create task files outside the folder from which it runs, including your home folder.
+
+If Twizzy cannot read a saved-data file, both the GUI and console show an error and lock task-changing commands so the file cannot be overwritten accidentally. Invalid saved entries such as blank descriptions or events that end on/before their start date are treated as corrupt data.
 
 ## Invalid input
 
-Twizzy rejects incomplete commands, unknown commands, invalid task numbers, impossible dates, snooze dates that are not in the future, an `unsnooze` command when no tasks are snoozed, and duplicate pending tasks without changing the task list. You can add a completed task again if it becomes relevant in the future.
+Twizzy rejects incomplete commands, unknown commands, invalid task numbers, impossible dates, event end dates that are not after their start dates, snooze dates that are not in the future, and an `unsnooze` command when no tasks are snoozed. It also explains when a task is already marked done or pending, and rejects duplicate pending tasks without changing the task list. For a duplicate, use `list` to find the existing task, or complete it before adding it again. You can add a completed task again if it becomes relevant in the future.
 
 ```text
 deadline time travel /by 2025-02-29

@@ -9,7 +9,7 @@ import java.util.Locale;
  */
 public class Event extends Task {
     private static final DateTimeFormatter DISPLAY_FORMAT =
-            DateTimeFormatter.ofPattern("MMM d uuuu", Locale.ENGLISH);
+            DateTimeFormatter.ofPattern("d MMM uuuu", Locale.ENGLISH);
 
     protected LocalDate from;
 
@@ -53,7 +53,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DISPLAY_FORMAT)
-                + " to: " + to.format(DISPLAY_FORMAT) + ")";
+        return super.toString() + System.lineSeparator() + "  ↳ Schedule: " + from.format(DISPLAY_FORMAT)
+                + " → " + to.format(DISPLAY_FORMAT);
     }
 }

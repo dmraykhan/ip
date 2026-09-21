@@ -82,34 +82,36 @@ public class TaskList {
      * Returns tasks that are not deferred beyond the supplied date.
      *
      * @param date date used to determine which tasks are active
-     * @return active tasks in their original order
+     * @return active tasks grouped by todo, deadline, and event type
      */
     public List<Task> getActiveTasks(LocalDate date) {
-        return tasks.stream()
+        List<Task> activeTasks = tasks.stream()
                 .filter(task -> !task.isSnoozedOn(date))
                 .toList();
+        return groupByType(activeTasks);
     }
 
     /**
      * Returns tasks that remain deferred beyond the supplied date.
      *
      * @param date date used to determine which tasks are snoozed
-     * @return snoozed tasks in their original order
+     * @return snoozed tasks grouped by todo, deadline, and event type
      */
     public List<Task> getSnoozedTasks(LocalDate date) {
-        return tasks.stream()
+        List<Task> snoozedTasks = tasks.stream()
                 .filter(task -> task.isSnoozedOn(date))
                 .toList();
+        return groupByType(snoozedTasks);
     }
 
     /**
      * Returns tasks whose descriptions contain the keyword, ignoring letter case.
      *
      * @param keyword text to search for
-     * @return matching tasks in their original order
+     * @return matching tasks grouped by todo, deadline, and event type
      */
     public List<Task> findTasks(String keyword) {
-        return findMatchingTasks(keyword, tasks);
+        return groupByType(findMatchingTasks(keyword, tasks));
     }
 
     /**
@@ -128,6 +130,20 @@ public class TaskList {
         return searchedTasks.stream()
                 .filter(task -> task.getDescription().toLowerCase(Locale.ROOT).contains(lowercaseKeyword))
                 .toList();
+    }
+
+    /** Returns the supplied tasks grouped in the order used by the task-list interface. */
+    private List<Task> groupByType(List<Task> tasksToGroup) {
+        List<Task> groupedTasks = new ArrayList<>();
+        addTasksOfType(tasksToGroup, Todo.class, groupedTasks);
+        addTasksOfType(tasksToGroup, Deadline.class, groupedTasks);
+        addTasksOfType(tasksToGroup, Event.class, groupedTasks);
+        return List.copyOf(groupedTasks);
+    }
+
+    /** Adds tasks of one concrete type while preserving their order within that type. */
+    private void addTasksOfType(List<Task> sourceTasks, Class<? extends Task> type, List<Task> destinationTasks) {
+        sourceTasks.stream().filter(type::isInstance).forEach(destinationTasks::add);
     }
 
     /**
