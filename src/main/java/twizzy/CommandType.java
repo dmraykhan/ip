@@ -8,6 +8,7 @@ public enum CommandType {
     DEADLINE("deadline", true),
     EVENT("event", true),
     FIND("find", true),
+    SNOOZE("snooze", true),
     LIST("list", false),
     MARK("mark", true),
     UNMARK("unmark", true),
@@ -49,6 +50,9 @@ public enum CommandType {
         for (CommandType type : values()) {
             if (type == UNKNOWN) {
                 continue;
+            }
+            if (type == LIST && command.equals("list snoozed")) {
+                return type;
             }
             if (command.equals(type.keyword)
                     || type.acceptsArguments && command.startsWith(type.keyword + " ")) {

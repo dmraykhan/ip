@@ -16,6 +16,8 @@ public class Parser {
 
     private static final String TO_MARKER = "/to";
 
+    private static final String UNTIL_MARKER = "/until";
+
     /** Creates a task from a complete add-task command. */
     public Task parseTask(String command, CommandType commandType) throws TwizzyException {
         if (command.trim().isEmpty()) {
@@ -35,7 +37,8 @@ public class Parser {
             return parseEvent(command);
         }
         throw new TwizzyException(
-                "I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, delete, or bye.");
+                "I don't recognize that command. Try todo, deadline, event, find, list, mark, unmark, "
+                        + "delete, snooze, or bye.");
     }
 
     /** Parses the task number in a command that selects one task. */
@@ -43,6 +46,11 @@ public class Parser {
             throws TwizzyException {
         String actionKeyword = action.getKeyword();
         String numberText = command.substring(actionKeyword.length()).trim();
+        return parseTaskNumber(numberText, actionKeyword, taskCount);
+    }
+
+    private int parseTaskNumber(String numberText, String actionKeyword, int taskCount)
+            throws TwizzyException {
         if (numberText.isEmpty()) {
             throw new TwizzyException(
                     "Please provide a task number. Try: " + actionKeyword + " <number>");
@@ -70,6 +78,35 @@ public class Parser {
             throw new TwizzyException("Please provide a keyword. Try: find <keyword>");
         }
         return keyword;
+    }
+
+    /**
+     * Parses a command that defers an active task until a future date.
+     *
+     * @param command complete snooze command
+     * @param taskCount number of active tasks that can be snoozed
+     * @return validated task selection and snooze end date
+     * @throws TwizzyException if the command does not select an active task and future date
+     */
+    public SnoozeDetails parseSnooze(String command, int taskCount) throws TwizzyException {
+        String details = command.substring(CommandType.SNOOZE.getKeyword().length()).trim();
+        int untilIndex = findCommandMarker(details, UNTIL_MARKER, 0);
+        if (untilIndex < 0) {
+            throw new TwizzyException("Try: snooze <number> /until <yyyy-MM-dd>");
+        }
+
+        String taskNumberText = details.substring(0, untilIndex).trim();
+        String dateText = details.substring(untilIndex + UNTIL_MARKER.length()).trim();
+        int taskIndex = parseTaskNumber(taskNumberText, CommandType.SNOOZE.getKeyword(), taskCount);
+        if (dateText.isEmpty()) {
+            throw new TwizzyException("The snooze date cannot be empty after /until.");
+        }
+
+        LocalDate until = parseDate(dateText, "snooze");
+        if (!until.isAfter(LocalDate.now())) {
+            throw new TwizzyException("The snooze date must be after today.");
+        }
+        return new SnoozeDetails(taskIndex, until);
     }
 
     private Task parseDeadline(String command) throws TwizzyException {
@@ -140,5 +177,14 @@ public class Parser {
             markerIndex = text.indexOf(marker, markerIndex + 1);
         }
         return -1;
+    }
+
+    /**
+     * Represents the target task and end date parsed from a snooze command.
+     *
+     * @param taskIndex zero-based index among active tasks
+     * @param until first date on which the task becomes active again
+     */
+    public record SnoozeDetails(int taskIndex, LocalDate until) {
     }
 }

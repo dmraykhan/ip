@@ -5,7 +5,7 @@ Twizzy is your task-list twin: it remembers the boring stuff so you do not have 
 ## Command format
 
 - Type one command per line.
-- Task numbers come from the latest `list` output.
+- Task numbers come from the latest active `list` output.
 - Dates must use `yyyy-MM-dd`, including leading zeroes.
 - Extra spaces around command details are ignored.
 
@@ -78,6 +78,21 @@ Use `unmark <number>` if the task returns for a sequel:
 unmark 2
 ```
 
+## Snooze a task
+
+Use `snooze <number> /until <yyyy-MM-dd>` to postpone an active task until a future date. Snoozed tasks are hidden from normal `list` and `find` results until that date, so remaining active task numbers stay usable with `mark`, `unmark`, and `delete`.
+
+```text
+snooze 2 /until 2099-12-31
+```
+
+```text
+Snoozed. Future you can handle this:
+  [D][ ] submit report (by: Sep 18 2026) (snoozed until: Dec 31 2099)
+```
+
+Use `list snoozed` to inspect deferred tasks and their return dates.
+
 ## Delete a task
 
 Use `delete <number>` to remove a task. Remaining tasks are renumbered automatically.
@@ -96,11 +111,11 @@ I'm out. Your tasks aren't — don't ghost them.
 
 ## Saved data
 
-Twizzy saves after every successful add, mark, unmark, or delete command. On startup, it loads tasks from `data/twizzy.txt`. If the directory or file does not exist, Twizzy starts with an empty list and creates them on the first save.
+Twizzy saves after every successful add, mark, unmark, delete, or snooze command. On startup, it loads tasks from `data/twizzy.txt`. If the directory or file does not exist, Twizzy starts with an empty list and creates them on the first save. Existing data files remain compatible when snooze information is added.
 
 ## Invalid input
 
-Twizzy rejects incomplete commands, unknown commands, invalid task numbers, and impossible dates without changing the task list.
+Twizzy rejects incomplete commands, unknown commands, invalid task numbers, impossible dates, and snooze dates that are not in the future without changing the task list.
 
 ```text
 deadline time travel /by 2025-02-29

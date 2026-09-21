@@ -1,5 +1,6 @@
 package twizzy;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -24,10 +25,36 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Returns an active task using its zero-based position among active tasks.
+     *
+     * @param index zero-based active-task index
+     * @param date date used to determine which tasks are active
+     * @return selected active task
+     */
+    public Task getActive(int index, LocalDate date) {
+        List<Task> activeTasks = getActiveTasks(date);
+        assert index >= 0 && index < activeTasks.size() : "Task index must refer to an active task.";
+        return activeTasks.get(index);
+    }
+
     /** Removes and returns the task at a zero-based index. */
     public Task remove(int index) {
         assertValidIndex(index);
         return tasks.remove(index);
+    }
+
+    /**
+     * Removes and returns an active task using its zero-based active-task position.
+     *
+     * @param index zero-based active-task index
+     * @param date date used to determine which tasks are active
+     * @return removed active task
+     */
+    public Task removeActive(int index, LocalDate date) {
+        Task task = getActive(index, date);
+        tasks.remove(task);
+        return task;
     }
 
     /** Returns the number of tasks in the list. */
@@ -41,14 +68,53 @@ public class TaskList {
     }
 
     /**
+     * Returns tasks that are not deferred beyond the supplied date.
+     *
+     * @param date date used to determine which tasks are active
+     * @return active tasks in their original order
+     */
+    public List<Task> getActiveTasks(LocalDate date) {
+        return tasks.stream()
+                .filter(task -> !task.isSnoozedOn(date))
+                .toList();
+    }
+
+    /**
+     * Returns tasks that remain deferred beyond the supplied date.
+     *
+     * @param date date used to determine which tasks are snoozed
+     * @return snoozed tasks in their original order
+     */
+    public List<Task> getSnoozedTasks(LocalDate date) {
+        return tasks.stream()
+                .filter(task -> task.isSnoozedOn(date))
+                .toList();
+    }
+
+    /**
      * Returns tasks whose descriptions contain the keyword, ignoring letter case.
      *
      * @param keyword text to search for
      * @return matching tasks in their original order
      */
     public List<Task> findTasks(String keyword) {
+        return findMatchingTasks(keyword, tasks);
+    }
+
+    /**
+     * Returns active tasks whose descriptions contain the keyword, ignoring letter case.
+     *
+     * @param keyword text to search for
+     * @param date date used to determine which tasks are active
+     * @return matching active tasks in their original order
+     */
+    public List<Task> findActiveTasks(String keyword, LocalDate date) {
+        return findMatchingTasks(keyword, getActiveTasks(date));
+    }
+
+    private List<Task> findMatchingTasks(String keyword, List<Task> searchedTasks) {
         String lowercaseKeyword = keyword.toLowerCase(Locale.ROOT);
-        return tasks.stream()
+        return searchedTasks.stream()
                 .filter(task -> task.getDescription().toLowerCase(Locale.ROOT).contains(lowercaseKeyword))
                 .toList();
     }

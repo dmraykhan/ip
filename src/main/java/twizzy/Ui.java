@@ -1,11 +1,17 @@
 package twizzy;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 /** Handles console input and output for Twizzy. */
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
+
+    private static final DateTimeFormatter DISPLAY_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("MMM d uuuu", Locale.ENGLISH);
 
     private static final String BANNER = " _______        _                     \n"
             + "|__   __|      (_)                    \n"
@@ -53,10 +59,20 @@ public class Ui {
     }
 
     /** Displays all tasks in their current order. */
-    public void showTaskList(TaskList tasks) {
+    public void showTaskList(TaskList tasks, LocalDate date) {
         System.out.println("Here's the current chaos:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+        List<Task> activeTasks = tasks.getActiveTasks(date);
+        for (int i = 0; i < activeTasks.size(); i++) {
+            System.out.println((i + 1) + "." + activeTasks.get(i));
+        }
+    }
+
+    /** Displays tasks that remain deferred on the current date. */
+    public void showSnoozedTasks(List<Task> snoozedTasks) {
+        System.out.println("Here are the snoozed tasks:");
+        for (int i = 0; i < snoozedTasks.size(); i++) {
+            Task task = snoozedTasks.get(i);
+            System.out.println((i + 1) + "." + task + formatSnoozeDate(task));
         }
     }
 
@@ -87,6 +103,12 @@ public class Ui {
         System.out.println("  " + task);
     }
 
+    /** Displays confirmation that a task has been deferred. */
+    public void showTaskSnoozed(Task task) {
+        System.out.println("Snoozed. Future you can handle this:");
+        System.out.println("  " + task + formatSnoozeDate(task));
+    }
+
     /** Displays confirmation that a task was removed. */
     public void showTaskDeleted(Task task, int taskCount) {
         System.out.println("Gone. We never knew this task:");
@@ -102,5 +124,9 @@ public class Ui {
     private void showTaskCount(int taskCount) {
         String taskWord = taskCount == 1 ? "task" : "tasks";
         System.out.println("You're juggling " + taskCount + " " + taskWord + " now.");
+    }
+
+    private String formatSnoozeDate(Task task) {
+        return " (snoozed until: " + task.getSnoozedUntil().format(DISPLAY_DATE_FORMAT) + ")";
     }
 }

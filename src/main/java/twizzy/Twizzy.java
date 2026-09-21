@@ -2,11 +2,17 @@ package twizzy;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 /** Coordinates Twizzy's UI, parser, task list, and storage components. */
 public class Twizzy {
     private static final Path DATA_FILE_PATH = Path.of("data", "twizzy.txt");
+
+    private static final DateTimeFormatter DISPLAY_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("MMM d uuuu", Locale.ENGLISH);
 
     private final Parser parser;
 
@@ -63,12 +69,15 @@ public class Twizzy {
         try {
             return switch (commandType) {
             case BYE -> "I'm out. Your tasks aren't — don't ghost them.";
-            case LIST -> formatTaskList(tasks.asList(), "Here's the current chaos:");
-            case FIND -> formatTaskList(tasks.findTasks(parser.parseFindKeyword(command)),
+            case LIST -> command.equals("list snoozed")
+                    ? formatSnoozedTaskList(tasks.getSnoozedTasks(LocalDate.now()))
+                    : formatTaskList(tasks.getActiveTasks(LocalDate.now()), "Here's the current chaos:");
+            case FIND -> formatTaskList(tasks.findActiveTasks(parser.parseFindKeyword(command), LocalDate.now()),
                     "Here are the matching tasks in your list:");
             case MARK -> formatStatusChange(command, commandType, true);
             case UNMARK -> formatStatusChange(command, commandType, false);
             case DELETE -> formatDeletion(command, commandType);
+            case SNOOZE -> formatSnooze(command);
             case TODO, DEADLINE, EVENT, UNKNOWN -> formatAddition(command, commandType);
             };
         } catch (TwizzyException | IOException exception) {
@@ -106,6 +115,21 @@ public class Twizzy {
         return response.toString();
     }
 
+    private String formatSnoozedTaskList(List<Task> snoozedTasks) {
+        StringBuilder response = new StringBuilder("Here are the snoozed tasks:");
+        for (int i = 0; i < snoozedTasks.size(); i++) {
+            Task task = snoozedTasks.get(i);
+            response.append(System.lineSeparator())
+                    .append(i + 1)
+                    .append('.')
+                    .append(task)
+                    .append(" (snoozed until: ")
+                    .append(task.getSnoozedUntil().format(DISPLAY_DATE_FORMAT))
+                    .append(')');
+        }
+        return response.toString();
+    }
+
     private String formatAddition(String command, CommandType commandType)
             throws TwizzyException, IOException {
         Task task = parser.parseTask(command, commandType);
@@ -118,8 +142,9 @@ public class Twizzy {
 
     private String formatStatusChange(String command, CommandType commandType, boolean isDone)
             throws TwizzyException, IOException {
-        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.size());
-        Task task = tasks.get(taskIndex);
+        LocalDate today = LocalDate.now();
+        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.getActiveTasks(today).size());
+        Task task = tasks.getActive(taskIndex, today);
         if (isDone) {
             task.markAsDone();
         } else {
@@ -132,12 +157,23 @@ public class Twizzy {
 
     private String formatDeletion(String command, CommandType commandType)
             throws TwizzyException, IOException {
-        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.size());
-        Task removedTask = tasks.remove(taskIndex);
+        LocalDate today = LocalDate.now();
+        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.getActiveTasks(today).size());
+        Task removedTask = tasks.removeActive(taskIndex, today);
         storage.save(tasks.asList());
         return "Gone. We never knew this task:" + System.lineSeparator()
                 + "  " + removedTask + System.lineSeparator()
                 + formatTaskCount();
+    }
+
+    private String formatSnooze(String command) throws TwizzyException, IOException {
+        LocalDate today = LocalDate.now();
+        Parser.SnoozeDetails details = parser.parseSnooze(command, tasks.getActiveTasks(today).size());
+        Task task = tasks.getActive(details.taskIndex(), today);
+        task.snoozeUntil(details.until());
+        storage.save(tasks.asList());
+        return "Snoozed. Future you can handle this:" + System.lineSeparator()
+                + "  " + task + " (snoozed until: " + details.until().format(DISPLAY_DATE_FORMAT) + ")";
     }
 
     private String formatTaskCount() {
@@ -152,7 +188,11 @@ public class Twizzy {
             findTasks(command);
             break;
         case LIST:
-            ui.showTaskList(tasks);
+            if (command.equals("list snoozed")) {
+                ui.showSnoozedTasks(tasks.getSnoozedTasks(LocalDate.now()));
+            } else {
+                ui.showTaskList(tasks, LocalDate.now());
+            }
             break;
         case MARK:
             changeTaskStatus(command, commandType, true);
@@ -162,6 +202,9 @@ public class Twizzy {
             break;
         case DELETE:
             deleteTask(command, commandType);
+            break;
+        case SNOOZE:
+            snoozeTask(command);
             break;
         case TODO:
         case DEADLINE:
@@ -176,7 +219,7 @@ public class Twizzy {
 
     private void findTasks(String command) throws TwizzyException {
         String keyword = parser.parseFindKeyword(command);
-        ui.showMatchingTasks(tasks.findTasks(keyword));
+        ui.showMatchingTasks(tasks.findActiveTasks(keyword, LocalDate.now()));
     }
 
     private void addTask(String command, CommandType commandType)
@@ -189,8 +232,9 @@ public class Twizzy {
 
     private void changeTaskStatus(String command, CommandType commandType, boolean isDone)
             throws TwizzyException, IOException {
-        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.size());
-        Task task = tasks.get(taskIndex);
+        LocalDate today = LocalDate.now();
+        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.getActiveTasks(today).size());
+        Task task = tasks.getActive(taskIndex, today);
         if (isDone) {
             task.markAsDone();
         } else {
@@ -206,9 +250,19 @@ public class Twizzy {
 
     private void deleteTask(String command, CommandType commandType)
             throws TwizzyException, IOException {
-        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.size());
-        Task removedTask = tasks.remove(taskIndex);
+        LocalDate today = LocalDate.now();
+        int taskIndex = parser.parseTaskIndex(command, commandType, tasks.getActiveTasks(today).size());
+        Task removedTask = tasks.removeActive(taskIndex, today);
         storage.save(tasks.asList());
         ui.showTaskDeleted(removedTask, tasks.size());
+    }
+
+    private void snoozeTask(String command) throws TwizzyException, IOException {
+        LocalDate today = LocalDate.now();
+        Parser.SnoozeDetails details = parser.parseSnooze(command, tasks.getActiveTasks(today).size());
+        Task task = tasks.getActive(details.taskIndex(), today);
+        task.snoozeUntil(details.until());
+        storage.save(tasks.asList());
+        ui.showTaskSnoozed(task);
     }
 }

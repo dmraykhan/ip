@@ -71,14 +71,16 @@ public class Storage {
         String status = task.isDone() ? "1" : "0";
         if (task instanceof Deadline deadline) {
             return "D" + FIELD_SEPARATOR + status + FIELD_SEPARATOR
-                    + escape(deadline.getDescription()) + FIELD_SEPARATOR + deadline.getBy();
+                    + escape(deadline.getDescription()) + FIELD_SEPARATOR + deadline.getBy()
+                    + formatSnoozeDate(task);
         }
         if (task instanceof Event event) {
             return "E" + FIELD_SEPARATOR + status + FIELD_SEPARATOR
                     + escape(event.getDescription()) + FIELD_SEPARATOR
-                    + event.getFrom() + FIELD_SEPARATOR + event.getTo();
+                    + event.getFrom() + FIELD_SEPARATOR + event.getTo() + formatSnoozeDate(task);
         }
-        return "T" + FIELD_SEPARATOR + status + FIELD_SEPARATOR + escape(task.getDescription());
+        return "T" + FIELD_SEPARATOR + status + FIELD_SEPARATOR + escape(task.getDescription())
+                + formatSnoozeDate(task);
     }
 
     private Task parseTask(String line) {
@@ -90,15 +92,15 @@ public class Storage {
         Task task;
         switch (fields.get(0)) {
         case "T":
-            requireFieldCount(fields, 3);
+            requireFieldCount(fields, 3, 4);
             task = new Todo(fields.get(2));
             break;
         case "D":
-            requireFieldCount(fields, 4);
+            requireFieldCount(fields, 4, 5);
             task = new Deadline(fields.get(2), LocalDate.parse(fields.get(3)));
             break;
         case "E":
-            requireFieldCount(fields, 5);
+            requireFieldCount(fields, 5, 6);
             task = new Event(fields.get(2), LocalDate.parse(fields.get(3)),
                     LocalDate.parse(fields.get(4)));
             break;
@@ -111,11 +113,28 @@ public class Storage {
         } else if (!fields.get(1).equals("0")) {
             throw new IllegalArgumentException("Invalid task status");
         }
+        restoreSnoozeDate(task, fields);
         return task;
     }
 
-    private void requireFieldCount(List<String> fields, int expectedCount) {
-        if (fields.size() != expectedCount) {
+    private String formatSnoozeDate(Task task) {
+        return task.getSnoozedUntil() == null ? "" : FIELD_SEPARATOR + task.getSnoozedUntil();
+    }
+
+    private void restoreSnoozeDate(Task task, List<String> fields) {
+        int snoozeFieldIndex = switch (fields.get(0)) {
+        case "T" -> 3;
+        case "D" -> 4;
+        case "E" -> 5;
+        default -> throw new IllegalArgumentException("Unknown task type");
+        };
+        if (fields.size() > snoozeFieldIndex) {
+            task.snoozeUntil(LocalDate.parse(fields.get(snoozeFieldIndex)));
+        }
+    }
+
+    private void requireFieldCount(List<String> fields, int minimumCount, int maximumCount) {
+        if (fields.size() < minimumCount || fields.size() > maximumCount) {
             throw new IllegalArgumentException("Unexpected number of fields");
         }
     }

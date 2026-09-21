@@ -42,6 +42,18 @@ class StorageTest {
     }
 
     @Test
+    void saveThenLoad_snoozedTask_preservesSnoozeEndDate() throws IOException {
+        Storage storage = new Storage(temporaryDirectory.resolve("tasks.txt"));
+        Todo task = new Todo("postponed task");
+        task.snoozeUntil(LocalDate.of(2099, 12, 31));
+
+        storage.save(List.of(task));
+        List<Task> loadedTasks = storage.load();
+
+        assertEquals(LocalDate.of(2099, 12, 31), loadedTasks.getFirst().getSnoozedUntil());
+    }
+
+    @Test
     void load_invalidData_throwsIoExceptionWithLineNumber() throws IOException {
         Path dataFile = temporaryDirectory.resolve("tasks.txt");
         Files.writeString(dataFile, "T | invalid-status | task");

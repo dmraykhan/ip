@@ -52,6 +52,8 @@ ____________________________________________________________
 | Complete a task | `mark <number>` | `mark 2` |
 | Reopen a task | `unmark <number>` | `unmark 2` |
 | Delete a task | `delete <number>` | `delete 1` |
+| Snooze a task | `snooze <number> /until <yyyy-MM-dd>` | `snooze 2 /until 2099-12-31` |
+| Show snoozed tasks | `list snoozed` | `list snoozed` |
 | Exit | `bye` | `bye` |
 
 Dates use the unambiguous `yyyy-MM-dd` format. Twizzy displays them in a friendlier form such as `Sep 18 2026`.
