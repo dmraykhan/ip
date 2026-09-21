@@ -6,6 +6,7 @@ import java.util.Scanner;
 /** Handles console input and output for Twizzy. */
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
+
     private static final String BANNER = " _______        _                     \n"
             + "|__   __|      (_)                    \n"
             + "   | |_      ___ __________   _       \n"
