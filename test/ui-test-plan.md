@@ -4,6 +4,8 @@ Run these cases with the project-specific `$test-ui` skill. Each case starts a f
 
 Within a case, `{{RESTART}}` stops Twizzy and starts it again in the same temporary directory so saved data can be checked.
 
+For GUI-only visual behavior, manually verify that a rejected command is shown in a red, bordered response bubble and that widening the window also widens long message bubbles. The console cases below continue to verify the corresponding command responses.
+
 ## TC1: Exit the chatbot
 
 **Aim:** Verify that `bye` prints the farewell and terminates normally.
@@ -786,6 +788,62 @@ Commands:
   mark <number> | unmark <number> | delete <number>
   snooze <number> /until <yyyy-MM-dd>
   bye
+{{DIVIDER}}
+{{DIVIDER}}
+I'm out. Your tasks aren't — don't ghost them.
+{{DIVIDER}}
+```
+
+## TC15: Reject repeated task status changes and invalid event ranges
+
+**Aim:** Verify that repeated mark or unmark commands explain that the task already has that status, and events cannot end on or before their start date.
+
+**Inputs:**
+
+```text
+todo prepare slides
+mark 1
+mark 1
+unmark 1
+unmark 1
+event workshop /from 2026-09-22 /to 2026-09-22
+event retrospective /from 2026-09-22 /to 2026-09-21
+list
+bye
+```
+
+**Expected output:**
+
+```text
+{{STARTUP}}
+{{DIVIDER}}
+Locked in. I added:
+  [T][ ] prepare slides
+You're juggling 1 task now.
+{{DIVIDER}}
+{{DIVIDER}}
+Huge. One less thing haunting you:
+  [T][X] prepare slides
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. That task is already marked as done.
+{{DIVIDER}}
+{{DIVIDER}}
+Plot twist. This one's back:
+  [T][ ] prepare slides
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. That task is already marked as not done.
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. An event must end after it starts.
+{{DIVIDER}}
+{{DIVIDER}}
+Yeah, no. An event must end after it starts.
+{{DIVIDER}}
+{{DIVIDER}}
+Here's the current chaos:
+1.[T][ ] prepare slides
 {{DIVIDER}}
 {{DIVIDER}}
 I'm out. Your tasks aren't — don't ghost them.

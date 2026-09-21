@@ -151,7 +151,12 @@ public class Parser {
         if (to.isEmpty()) {
             throw new TwizzyException("The event end date cannot be empty after /to.");
         }
-        return new Event(description, parseDate(from, "event start"), parseDate(to, "event end"));
+        LocalDate startDate = parseDate(from, "event start");
+        LocalDate endDate = parseDate(to, "event end");
+        if (!endDate.isAfter(startDate)) {
+            throw new TwizzyException("An event must end after it starts.");
+        }
+        return new Event(description, startDate, endDate);
     }
 
     private LocalDate parseDate(String dateText, String fieldName) throws TwizzyException {

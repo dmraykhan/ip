@@ -42,6 +42,15 @@ class ParserTest {
     }
 
     @Test
+    void parseTask_eventWithSameOrEarlierEndDate_throwsHelpfulException() {
+        TwizzyException exception = assertThrows(TwizzyException.class,
+                () -> parser.parseTask("event workshop /from 2026-09-22 /to 2026-09-22",
+                        CommandType.EVENT));
+
+        assertEquals("An event must end after it starts.", exception.getMessage());
+    }
+
+    @Test
     void parseTaskIndex_validOneBasedNumber_returnsZeroBasedIndex() throws TwizzyException {
         assertEquals(1, parser.parseTaskIndex("mark 2", CommandType.MARK, 3));
     }
