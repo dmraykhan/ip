@@ -1,0 +1,54 @@
+.root {
+    -fx-background-color: #f7f9fc;
+    -fx-font-family: "System";
+}
+
+.scroll-pane {
+    -fx-background: #f7f9fc;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-fill-width: true;
+}
+
+.message {
+    -fx-background-radius: 12;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+}
+
+.user-message {
+    -fx-background-color: #2f6fed;
+    -fx-text-fill: white;
+}
+
+.bot-message {
+    -fx-background-color: #e8edf5;
+    -fx-text-fill: #1f2937;
+}
+
+.error-message {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #dc2626;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-text-fill: #991b1b;
+}
+
+.command-input {
+    -fx-background-radius: 8;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8;
+    -fx-padding: 8 10;
+}
+
+.send-button {
+    -fx-background-color: #2f6fed;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+}

@@ -49,11 +49,18 @@ public class MainWindow extends AnchorPane {
         }
 
         dialogContainer.getChildren().add(DialogBox.user(command));
-        dialogContainer.getChildren().add(DialogBox.bot(twizzy.getResponse(command)));
+        String response = twizzy.getResponse(command);
+        dialogContainer.getChildren().add(isErrorResponse(response)
+                ? DialogBox.error(response) : DialogBox.bot(response));
         userInput.clear();
 
         if (command.equals("bye")) {
             Platform.runLater(Platform::exit);
         }
+    }
+
+    /** Returns whether a response represents a rejected command. */
+    private boolean isErrorResponse(String response) {
+        return response.startsWith("Yeah, no.");
     }
 }

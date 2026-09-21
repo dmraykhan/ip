@@ -157,6 +157,10 @@ public class Twizzy {
         LocalDate today = LocalDate.now();
         int taskIndex = parser.parseTaskIndex(command, commandType, tasks.getActiveTasks(today).size());
         Task task = tasks.getActive(taskIndex, today);
+        if (task.isDone() == isDone) {
+            String status = isDone ? "done" : "not done";
+            throw new TwizzyException("That task is already marked as " + status + ".");
+        }
         if (isDone) {
             task.markAsDone();
         } else {
@@ -250,6 +254,10 @@ public class Twizzy {
         LocalDate today = LocalDate.now();
         int taskIndex = parser.parseTaskIndex(command, commandType, tasks.getActiveTasks(today).size());
         Task task = tasks.getActive(taskIndex, today);
+        if (task.isDone() == isDone) {
+            String status = isDone ? "done" : "not done";
+            throw new TwizzyException("That task is already marked as " + status + ".");
+        }
         if (isDone) {
             task.markAsDone();
         } else {
