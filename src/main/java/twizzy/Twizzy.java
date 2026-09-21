@@ -9,8 +9,11 @@ public class Twizzy {
     private static final Path DATA_FILE_PATH = Path.of("data", "twizzy.txt");
 
     private final Parser parser;
+
     private final Storage storage;
+
     private final Ui ui;
+
     private TaskList tasks;
 
     /** Creates a Twizzy application using its default local data file. */

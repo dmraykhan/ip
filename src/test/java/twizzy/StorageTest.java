@@ -42,7 +42,7 @@ class StorageTest {
     }
 
     @Test
-    void load_invalidData_throwsIOExceptionWithLineNumber() throws IOException {
+    void load_invalidData_throwsIoExceptionWithLineNumber() throws IOException {
         Path dataFile = temporaryDirectory.resolve("tasks.txt");
         Files.writeString(dataFile, "T | invalid-status | task");
         Storage storage = new Storage(dataFile);

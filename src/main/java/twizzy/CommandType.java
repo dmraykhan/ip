@@ -16,6 +16,7 @@ public enum CommandType {
     UNKNOWN("", false);
 
     private final String keyword;
+
     private final boolean acceptsArguments;
 
     /**

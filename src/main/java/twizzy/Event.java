@@ -12,6 +12,7 @@ public class Event extends Task {
             DateTimeFormatter.ofPattern("MMM d uuuu", Locale.ENGLISH);
 
     protected LocalDate from;
+
     protected LocalDate to;
 
     /**
