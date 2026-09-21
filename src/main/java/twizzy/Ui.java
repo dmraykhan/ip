@@ -20,11 +20,8 @@ public class Ui {
 
     /** Displays Twizzy's banner and greeting. */
     public void showWelcome() {
-        System.out.println(DIVIDER);
-        System.out.println(BANNER);
-        System.out.println("Yo, I'm Twizzy — your task-list twin.");
-        System.out.println("Drop a command. I'll keep the chaos organized.");
-        System.out.println(DIVIDER);
+        showLines(DIVIDER, BANNER, "Yo, I'm Twizzy — your task-list twin.",
+                "Drop a command. I'll keep the chaos organized.", DIVIDER);
     }
 
     /** Returns whether another command is available from standard input. */
@@ -70,27 +67,23 @@ public class Ui {
 
     /** Displays confirmation that a task was added. */
     public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Locked in. I added:");
-        System.out.println("  " + task);
+        showLines("Locked in. I added:", "  " + task);
         showTaskCount(taskCount);
     }
 
     /** Displays confirmation that a task was marked as completed. */
     public void showTaskMarked(Task task) {
-        System.out.println("Huge. One less thing haunting you:");
-        System.out.println("  " + task);
+        showLines("Huge. One less thing haunting you:", "  " + task);
     }
 
     /** Displays confirmation that a task was marked as incomplete. */
     public void showTaskUnmarked(Task task) {
-        System.out.println("Plot twist. This one's back:");
-        System.out.println("  " + task);
+        showLines("Plot twist. This one's back:", "  " + task);
     }
 
     /** Displays confirmation that a task was removed. */
     public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("Gone. We never knew this task:");
-        System.out.println("  " + task);
+        showLines("Gone. We never knew this task:", "  " + task);
         showTaskCount(taskCount);
     }
 
@@ -102,5 +95,16 @@ public class Ui {
     private void showTaskCount(int taskCount) {
         String taskWord = taskCount == 1 ? "task" : "tasks";
         System.out.println("You're juggling " + taskCount + " " + taskWord + " now.");
+    }
+
+    /**
+     * Prints one or more complete output lines in the supplied order.
+     *
+     * @param lines lines to display
+     */
+    private void showLines(String... lines) {
+        for (String line : lines) {
+            System.out.println(line);
+        }
     }
 }
